@@ -1,0 +1,25 @@
+@if(data){
+    <jmg-article [data]="data">
+        @if(data?.article){
+            <!-- <div ngSkipHydration [innerHTML]="data.article?.html ?? '' | sanitizeHtml"></div> -->
+            @for(part of data.article?.parts; track part){
+              @switch(part?.tag){
+                 @case("p"){
+                        <p>{{part?.value}}</p>
+                    }
+                    @case("h2"){
+                        <h2 [id]="part?.id ?? ''">{{part?.value}}</h2>
+                    }
+                    @case("link"){
+                        <amz-product [amzProd]="part?.product"></amz-product>
+                    }
+                    @case("contents"){
+                        <article-page-contents [data]="data"></article-page-contents>
+                    }
+                    
+                }
+            }
+        }
+        
+    </jmg-article>
+}

@@ -1,0 +1,10 @@
+<main class="flex-wrapper content-padding">
+    <section>
+        <article-related [articlesData]="topArticles" [showHeader]="false" [centerLinks]="true">
+        </article-related>
+    </section>
+    <section class="content-padding pt-40 pb-70 m-0">
+        <h3 class="app-subheader-font mb-40">Need more tips? Check out our product reviews!</h3>
+        <jmg-btn (onClick)="navigateTo('reviews')">See Reviews</jmg-btn>
+    </section>
+</main>

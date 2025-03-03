@@ -1,0 +1,199 @@
+$main-font: Source Serif Pro,
+    serif;
+$secondary-font: Source Sans Pro,
+    Helvetica,
+    Verdana,
+    sans-serif;
+
+.font-main {
+    font-family: $main-font;
+}
+
+.font-secondary {
+    font-family: $secondary-font;
+}
+
+.header-font {
+    color: $darkblue;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.app-header-font {
+    font-size: 75px;
+    word-spacing: 3px;
+    @extend .header-font;
+
+    @media only screen and (max-width: 600px) {
+        text-align: center;
+        font-size: 60px;
+    }
+}
+
+.app-header-font-small {
+    @extend .header-font;
+    font-size: 30px;
+}
+
+.app-header-font-lightblue {
+    @extend .app-header-font;
+    color: $lightblue;
+}
+
+.subheader-font {
+    color: $lightblue;
+    font-family: $secondary-font;
+    font-size: 22px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+
+    @media only screen and (max-width: 600px) {
+        text-align: center;
+        font-size: 18px;
+    }
+}
+
+.app-subheader-font {
+    color: $lightblue;
+    @extend .subheader-font;
+}
+
+.subheader-font-white {
+    color: white;
+    @extend .subheader-font;
+}
+
+.subheader-font-black {
+    color: #333;
+    @extend .subheader-font;
+}
+
+//Font sizes
+.smaller-text {
+    font-size: 0.9rem;
+}
+
+.font-xs {
+    font-size: 0.75rem !important; //12px
+}
+
+.font-sm {
+    font-size: 0.875rem !important; //14px
+}
+
+.font-md {
+    font-size: 1rem !important; //16px
+}
+
+.font-lg {
+    font-size: 1.125rem; //18px
+}
+.font-xl {
+    font-size: 1.375rem; //22px
+}
+
+.large-text {
+    font-size: 1.4rem;
+}
+
+.jmg-xxlarge {
+    font-size: 36px !important;
+}
+
+@media (min-width: 0px) {
+
+    *:not(.font-md)>p,
+    ul,
+    li {
+        font-size: .9rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (min-width: 415px) {
+
+    *:not(.font-md)>p,
+    ul,
+    li {
+        font-size: calc(0.8rem + 1vw);
+    }
+
+    h3 {
+        font-size: calc(.9rem + 1vw);
+    }
+
+    h2 {
+        font-size: calc(1.1rem + 1vw);
+    }
+
+    h1 {
+        font-size: calc(1.4rem + 1vw);
+    }
+}
+
+@media (min-width: 1001px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    *:not(.font-md)>p,
+    ul,
+    li {
+        font-size: 1.3rem;
+    }
+}
+
+.resources {
+    a {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}
+
+//styles
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.motto-text {
+    @extend .italic;
+    @extend .large-text;
+}
+
+.fw-bold {
+    font-weight: 600;
+}
+
+.fw-bolder {
+    font-weight: 700;
+}

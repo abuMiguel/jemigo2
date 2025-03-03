@@ -1,0 +1,86 @@
+<main>
+    <header>
+        <section class="app-header-section">
+            <!-- <img style="width: 100%; display:block;" src="/assets/images/woman-working-from-home.jpg" /> -->
+            <div class="app-header-content">
+                <h1 class="app-header-font mb-10 no-wrap">Group Nook</h1>
+                <h2 class="subheader-font-white pt-10 pb-20 hide-small no-wrap">The Online Hub</h2>
+                <h2 class="app-subheader-font hide-medium hide-large mt-10 pb-20">The Online Hub</h2>
+                <h3 class="subheader-font-black mb-0">Learn About Work From Home Culture</h3>
+                <div class="app-calltoaction-btn">
+                    <jmg-btn (onClick)="navigateTo('blog')">Get Started</jmg-btn>
+                </div>
+            </div>
+
+        </section>
+    </header>
+    <section class="app-main-content">
+        <div class="app-main-content-inner-wrapper">
+            <section class="app-intro-mobile">
+                <ng-container *ngTemplateOutlet="appIntro"></ng-container>
+            </section>
+            <section class="app-main-col-left">
+                <section style="display:grid;grid-row-gap:70px;">
+                    <article-card *ngFor="let art of featured" [title]="art.title" [linkRoute]="art.data.fullPath"
+                        [date]="art.articleDate" [imgRoute]="art.data.image.src" [snippet]="art.snippet" [alt]="art.alt">
+                    </article-card>
+                </section>
+                <div style="padding-top:40px;">
+                    <jmg-btn (onClick)="navigateTo('blog')">See All Articles</jmg-btn>
+                </div>
+                <article-related [articlesData]="topArticles" [smallerVersion]="true">
+                    Top Articles
+                </article-related>
+            </section>
+            <section class="app-main-col-right-bottom">
+                <section class="app-main-col-right-top">
+                    <ng-container *ngTemplateOutlet="appIntro"></ng-container>
+                </section>
+                <section>
+                    <h3 class="app-header-font-small mb-20">Sustainability</h3>
+                    
+                    <h3 class="app-subheader-font mb-20">How does it work?</h3>
+                    <div class="mb-40">
+                        <iframe class="auto-size" style="min-height:190px;"
+                            src="https://www.youtube-nocookie.com/embed/HJ9yzkwX5N8" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="mb-40">
+                        <iframe class="auto-size" style="min-height:190px;"
+                            src="https://www.youtube-nocookie.com/embed/RYZrp6Mqw2E" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                </section>
+            </section>
+
+        </div>
+    </section>
+</main>
+
+<ng-template #appIntro>
+    <section>
+        <h3 class="app-subheader-font mt-5 mb-20">Our Motto</h3>
+        <div class="mt-0 mb-40 motto-text">You can do affiliate marketing too!</div>
+
+        <h3 class="app-subheader-font mt-5 mb-20">Resources</h3>
+        <div class="resources mb-40">
+            <a href="https://www.bls.gov/cps/telework.htm" target="_blank">Statistics</a>
+            <p class="mt-0">Source: U.S. Bureau of Labor Statistics</p>
+
+        </div>
+
+        <h3 class="app-subheader-font mt-5 mb-20">Our articles</h3>
+        <div class="mb-40 center-text-mobile">
+            <jmg-btn [color]="'blue'" (onClick)="navigateTo('blog')">Read Articles</jmg-btn>
+        </div>
+
+        <h3 class="app-subheader-font mt-5 mb-20">Our reviews</h3>
+        <div class="mb-20 center-text-mobile">
+            <jmg-btn [color]="'blue'" (onClick)="navigateTo('reviews')">See Product Reviews</jmg-btn>
+        </div>
+    </section>
+</ng-template>

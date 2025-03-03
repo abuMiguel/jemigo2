@@ -1,0 +1,111 @@
+.jmg-btn {
+    font-size: 18px;
+    text-transform: none;
+    font-family: inherit;
+    font-style: italic;
+    letter-spacing: 1px;
+    padding: 20px 40px;
+    border-radius: 5px;
+    border-style: none;
+    color: white;
+    &:hover {
+        cursor: pointer;
+    }
+    &:active,
+    &:focus {
+        outline: $darkerlightblue dotted 2px;
+    }
+}
+
+.jmg-btn-orange {
+    @extend .jmg-btn;
+    background-color: $orange;
+    &:hover {
+        background-color: $darkerorange;
+    }
+}
+
+.jmg-btn-blue {
+    @extend .jmg-btn;
+    background-color: $lightblue;
+    &:hover {
+        background-color: $darkerlightblue;
+    }
+}
+
+.jmg-btn-green {
+    @extend .jmg-btn;
+    background-color: $green;
+    &:hover {
+        background-color: $darkergreen;
+    }
+}
+
+.custom-link-btn {
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-family: $main-font;
+    border: none;
+    cursor: pointer;
+    color: $darkblue;
+    font-size: 20px;
+    font-weight: bold;
+    &:hover {
+        color: $lightblue;
+    }
+}
+
+.continue-reading {
+    color: #2D4372;
+    text-underline-offset: 3px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.app-calltoaction-btn {
+    padding-top: 40px;
+    @media only screen and (max-width: 600px) {
+        text-align: center;
+    }
+}
+
+.slider-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 70%;
+    color: darkgrey;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid lightgrey;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    // box-shadow: 0 0 2px rgb(119, 119, 119);
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+}
+
+
+.btn{
+    &:hover {
+        cursor: pointer;
+    }
+    &:active,
+    &:focus {
+        outline: $darkerlightblue dotted 2px;
+    }
+}
+
+.btn-sm{
+    @extend .btn;
+}
+.btn-md{
+    height:30px;
+    width:110px;
+    @extend .btn;
+}
+.btn-lg{
+    @extend .btn;
+}

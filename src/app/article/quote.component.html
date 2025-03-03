@@ -1,0 +1,13 @@
+<div class="quote">
+    <blockquote>
+        <p>{{text}}</p>
+        <cite>
+            @if (url) {
+              <a target="_blank" [href]="url">{{author}}</a>                
+            }
+            @else{
+              {{author}}
+            }
+        </cite>
+    </blockquote>
+</div>

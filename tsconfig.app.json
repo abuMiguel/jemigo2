@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "files": [
+    "src/main.ts",
+    "src/main.server.ts",
+    "server.ts",
+    "server.db.ts",
+    "server.api.ts",
+    "server.external.api.ts",
+    "server.models.ts",
+    "server.scheduler.ts",
+    "server.util.ts",
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

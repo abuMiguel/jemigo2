@@ -1,0 +1,27 @@
+<article style="display:flex;flex-direction:column;overflow:hidden;">
+    <a [href]="linkRoute" class="mb-20 w-100" style="text-underline-offset: 3px;position: relative;
+    display: block;">
+        <div style="position: relative; left:0;top:0;right:0;bottom:0;padding-bottom: calc( 0.37 * 100% );
+        overflow:hidden;">
+            <img decoding="async" loading="lazy" width="800" height="420" [src]="imgRoute" [alt]="alt" style="height: auto;
+            position: absolute;
+            top: calc(50% + 1px);
+            left: calc(50% + 1px);
+            -webkit-transform: scale(1.01) translate(-50%,-50%);
+            -ms-transform: scale(1.01) translate(-50%,-50%);
+            transform: scale(1.01) translate(-50%,-50%);
+            display: block;
+        width: 100%;
+        max-height: none;
+        max-width: none;">
+        </div>
+    </a>
+    <div style="margin-bottom: 0px;width: 100%;flex-direction: column;flex-grow: 1;">
+        <h3 class="mt-0" style="margin-bottom:4px;">
+            <a class="link-hover" [href]="linkRoute">{{title}}</a>
+        </h3>
+        <div style="margin-bottom: 13px;font-size: 12px; color: #adadad;line-height: 1.3em;">{{date | date:'longDate'}}</div>
+        <p class="mb-20" style="font-size: 17px;line-height:1.5em;">{{snippet}}</p>
+        <a [href]="linkRoute" class="continue-reading">Continue Reading »</a>
+    </div>
+</article>

@@ -1,0 +1,11 @@
+<header>
+    <h1 class="center" style="margin-bottom: 15px;">{{data?.title}}</h1>
+    <div class="center">
+        <div class="article-header-image">
+            <img [ngSrc]="data.image.src" ngSrcset="400w, 640w" [alt]="data.image.alt" fill priority>
+        </div>
+
+        <p class="updated-date">Last Updated: {{ data.modifiedDate | date }}</p>
+    </div>
+</header>
+<article-share [url]="data?.url ?? ''"></article-share>

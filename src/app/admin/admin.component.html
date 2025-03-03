@@ -1,0 +1,7 @@
+<div style="padding: 5px;text-align: center;">
+    <button class="" style="min-height:35px;min-width: 120px;margin-right:5px;" (click)="viewArticleManagement()">Articles</button>
+    <button class="" style="min-height:35px;min-width: 120px;" (click)="viewProductManagement()">Products</button>
+</div>
+
+<article-management [hidden]="view !== 'article'" />
+<product-management [hidden]="view !== 'product'" />

@@ -1,0 +1,8 @@
+<section class="page-contents">
+    <p class="mb-0"><strong>Page Contents:</strong></p>
+    <ul class="mt-0" style="list-style: none;font-size: 1.2rem;">
+        @for(header of headerElements(); track header){
+            <li><a [href]="data().fullPath + '#' + header?.id">{{header?.value}}</a></li>
+        }
+    </ul>
+</section>
