@@ -6,12 +6,15 @@
         "use": "@vercel/static"
       },
       {
-        "src": "server.mjs",
+        "src": "dist/server/server.mjs",
         "use": "@vercel/node",
         "config": {
           "includeFiles": [
             "dist/server/**",
-            "dist/browser/**"
+            "dist/browser/**",
+            "package.json",
+            "package-lock.json",
+            "tsconfig.app.json"
           ],
           "nodeVersion": "20.x"
         }
@@ -20,7 +23,7 @@
     "routes": [
       {
         "src": "/(?!api/)(.*)",
-        "dest": "server.mjs"
+        "dest": "dist/server/server.mjs"
       },
       {
         "src": "/api/(.*)",
