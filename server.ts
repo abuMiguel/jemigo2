@@ -31,6 +31,7 @@ export async function app(): Promise<express.Express> {
   server.set('trust proxy', true);
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
+  server.use(helmet());
   // server.use(
   //   helmet.contentSecurityPolicy({
   //     directives: {
