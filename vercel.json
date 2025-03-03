@@ -14,7 +14,8 @@
             "dist/browser/**",
             "package.json",
             "package-lock.json",
-            "tsconfig.app.json"
+            "tsconfig.app.json",
+            "tsconfig.json"
           ],
           "nodeVersion": "20.x"
         }
