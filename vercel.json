@@ -1,1 +1,34 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] } 
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "dist/browser/**",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "server.mjs",
+        "use": "@vercel/node",
+        "config": {
+          "includeFiles": [
+            "dist/server/**",
+            "dist/browser/**"
+          ],
+          "nodeVersion": "20.x"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(?!api/)(.*)",
+        "dest": "server.mjs"
+      },
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      },
+      {
+        "src": "/assets/(.*)",
+        "dest": "/dist/browser/assets/$1"
+      }
+    ]
+  }
