@@ -1,29 +1,33 @@
 <!-- Navbar for medium/large screens -->
 <nav class="jmg-navbar hide-small">
-    <img class="mx-10" alt="logo" src="/assets/icons/jmg-72.png">
-    <a href="/" routerLink="/" routerLinkActive="jmg-nav-active" [routerLinkActiveOptions]="{exact:true}" onmousedown="return false">
-        <span class="nav-label">HOME</span>
-    </a>
-    <a href="/about" routerLink="about" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
-        <span class="nav-label">ABOUT</span>
-    </a>
-    <a href="/blog" routerLink="blog" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
-        <span class="nav-label">BLOG</span>
-    </a>
-    <a href="/reviews" routerLink="reviews" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
-        <span class="nav-label">REVIEWS</span>
-    </a>
+    <div class="navbar-container">
+        <img alt="logo" ngSrc="/assets/images/groupnook-black-bg.png" width="252" height="41.31">
+        <div>
+            <a href="/" routerLink="/" routerLinkActive="jmg-nav-active" [routerLinkActiveOptions]="{exact:true}" onmousedown="return false">
+                <span class="nav-label">HOME</span>
+            </a>
+            <a href="/about" routerLink="about" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
+                <span class="nav-label">ABOUT</span>
+            </a>
+            <a href="/blog" routerLink="blog" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
+                <span class="nav-label">BLOG</span>
+            </a>
+            <a href="/reviews" routerLink="reviews" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
+                <span class="nav-label">REVIEWS</span>
+            </a>
+        </div>
+    </div>
 </nav>
 
 <!-- Hamburger Navbar for small screens -->
-<section class="top-nav hide-medium hide-large">
+<section class="top-nav hide-medium hide-large" id="mobile-nav">
     <div>
-        <img alt="logo" src="/assets/icons/jmg-52.png" style="width:52px;height:31px;padding: 0;vertical-align:bottom;">
+        <img alt="logo" src="/assets/icons/icon-72.png">
     </div>
     <input id="menu-toggle" type="checkbox" />
     <label class='menu-button-container' for="menu-toggle">
-    <div class='menu-button'></div>
-  </label>
+        <div class='menu-button'></div>
+    </label>
     <ul class="menu">
         <li><a href="/" class="jmg-nav-item-mobile">HOME</a></li>
         <li><a href="/about" class="jmg-nav-item-mobile">ABOUT</a></li>
@@ -32,8 +36,7 @@
     </ul>
 </section>
 
-
-<div id="main">
+<div id="main" style="padding-top: 50px;"> <!-- Add padding to the top to avoid content being hidden -->
     <div id="content-wrap">
         <router-outlet></router-outlet>
     </div>

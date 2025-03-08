@@ -4,7 +4,7 @@ import { AppService } from '../app.service';
 import { faAngleRight, faTree } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ArticleRelatedComponent } from '../article/article-related.component';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { ArticleCardComponent } from '../article/article-card.component';
@@ -19,7 +19,8 @@ import { BlogService } from '../blog.service';
     CommonModule,
     ArticleRelatedComponent,
     ArticleCardComponent,
-    ButtonComponent
+    ButtonComponent,
+    NgOptimizedImage,
   ],
 })
 export class HomeComponent implements OnInit {

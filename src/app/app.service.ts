@@ -17,7 +17,7 @@ export class AppService implements OnInit{
 
   isBrowser = new BehaviorSubject<boolean>(false);
 
-  defaultImageUrl = `/assets/icons/jmg-512.png`;
+  defaultImageUrl = `/assets/icons/icon-512.png`;
 
   previousUrl: string = "";
   currentUrl: string = "";

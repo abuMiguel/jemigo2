@@ -1,0 +1,41 @@
+.article-heading {
+  font-family: 'Crimson Text', serif; /* Elegant serif font */
+  font-size: 3.2rem;
+  font-weight: 600; /* Semi-bold for a refined look */
+  line-height: 1.2;
+  color: #282828; /* Deep charcoal gray, softer than pure black */
+  letter-spacing: -0.01em; /* Subtle letter spacing */
+  position: relative;
+  margin-bottom: 2.5rem;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.05); /* Very subtle shadow for depth */
+}
+
+.article-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.8rem;
+  width: 5rem;
+  height: 0.2rem;
+  background-color: #4a4a4a; /* Slightly lighter gray for the line */
+  transform: scaleX(0); /* Start scaled to 0 */
+  transform-origin: left;
+  transition: transform 0.6s ease-out; /* Smooth animation */
+}
+
+.article-heading:hover::after {
+  transform: scaleX(1); /* Scale to full width on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .article-heading {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-heading {
+    font-size: 2.4rem;
+  }
+}

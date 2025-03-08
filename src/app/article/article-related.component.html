@@ -2,14 +2,14 @@
     <ng-content></ng-content>
 </h3>
 <article [ngClass]="smallerVersion ? 'related-article-sm' : 'related-article'">
-    <div *ngFor="let data of articlesData" class="mb-10" [ngClass]="smallerVersion ? 'related-article-inner-wrapper-sm' : 'related-article-inner-wrapper'">
-        <a [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]" class="w-100">
-            <div style="overflow: hidden;">
+    <div *ngFor="let data of articlesData" class="related-article-item" [ngClass]="smallerVersion ? 'related-article-inner-wrapper-sm' : 'related-article-inner-wrapper'">
+        <a [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]" class="related-article-link">
+            <div class="related-article-img-wrapper">
                 <img class="related-article-img" decoding="async" loading="lazy" width="300" height="225" [ngSrc]="data?.data?.image?.src" ngSrcset="400w, 640w" [alt]="data?.data?.image?.alt">
             </div>
         </a>
-        <div [ngClass]="{'center' : centerLinks}" class="m-0" style="width: 100%;flex-grow: 1;">
-            <h3 class="my-0" style="font-size: 18px;">
+        <div [ngClass]="{'center' : centerLinks}" class="related-article-content">
+            <h3 class="related-article-title">
                 <a class="link-hover" [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]">{{data.title}}</a>
             </h3>
         </div>

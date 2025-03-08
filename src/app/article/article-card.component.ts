@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'article-card',
@@ -8,7 +8,6 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
   ]
 })
 export class ArticleCardComponent {

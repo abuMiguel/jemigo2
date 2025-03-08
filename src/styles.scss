@@ -1,11 +1,28 @@
-@import "./styles/variables.scss";
+@import "./styles/variables";
 @import "./styles/colors";
-@import "./styles/spacing.scss";
+@import "./styles/spacing";
 @import "./styles/fonts";
 @import "./styles/buttons";
-@import "./styles/mobile-nav";
+@import "./styles/nav";
+@import "./styles/article";
 @import "highlight.js/styles/vs2015.css";
 @import 'ngx-sharebuttons/themes/modern';
+
+/* filepath: /c:/Users/josep/dev/group-nook/src/styles.scss */
+.article-content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.article-paragraph {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 15px;
+}
 
 // FONT STYLES
 .page-contents-list {
@@ -19,6 +36,10 @@
     margin: 0;
     color: $mediumblack;
     @extend .subheader-font;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 a {
@@ -32,51 +53,68 @@ a {
         text-decoration-skip-ink: none;
         cursor: pointer;
         text-underline-offset: 3px;
-        color: #13aff0;
+        color: #004080;
     }
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 // APP HEADER
+/* filepath: /c:/Users/josep/dev/group-nook/src/styles.scss */
+$app-primary-color: #007BFF; // Primary color for stylish design
+
 .app-header-section {
     position: relative;
-    padding: 7rem 0 4rem 70px;
-    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(assets/images/woman-working-from-home.jpg);
-    background-size: cover;
-    @media only screen and (max-width: 600px) {
-        background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(assets/images/woman-working-from-home.jpg);
-        background-position: top right;
-        background-size: cover;
-        padding: 2rem;
-    }
+    height: 50vh; /* Adjust the height to full viewport height */
+    width: 100vw; /* Ensure the section spans the full viewport width */
+    overflow: hidden;
 }
 
-// FOR VIDEO HEADER USE THIS
-// .app-header-section {
-//   position: relative;
-//   width:100%;
-//   height: 45vh;
-//   max-height: 450px;
-//   @media only screen and (max-width: 600px) {
-//     background-position: top right;
-//     background-size: cover;
-//     padding: 80px 30px 80px 30px;
-//   }
-// }
-// .app-header-section video {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   object-fit: cover;
-// }
-// .app-header-content{
-//   position: absolute;
-//   left: 13%;
-//   top: 42%;
-//   transform: translate(-13%,-42%);
-//   line-height: 0;
-// }
+.header-image {
+    object-fit: cover;
+}
+
+.app-header-content {
+    position: absolute;
+    top: calc(50% - 25px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%; /* Make the content span the full width */
+    z-index: 2; /* Ensure the content is above the overlay */
+}
+
+.app-header-overlay {
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+    padding: 20px;
+}
+
+.app-header-font {
+    font-size: 2.5em;
+    color: $darkblue; /* Use a dark color for better contrast */
+}
+
+.subheader-font-primary {
+    font-size: 1.5em;
+    color: $app-primary-color; /* Use primary color for the subheader */
+}
+
+.subheader-font-secondary {
+    font-size: 1.2em;
+    color: $darkerlightblue; 
+}
+
+.subheader-font-white {
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.subheader-font-black {
+    font-size: 1.2em;
+    color: #333;
+}
+
 // BLOG HEADER
 .blog-header {
     padding-top: 110.5px;
@@ -253,7 +291,6 @@ body {
 // MAIN CONTENT WRAPPERS
 #main {
     position: relative;
-    padding-top: $nav-bar-height;
     @media only screen and (max-width: 600px) {
         padding-top: 0;
     }
@@ -262,85 +299,15 @@ body {
 
 #content-wrap {
     background-color: rgb(250, 250, 250);
-    min-height: calc(100vh - $nav-bar-height - $footer-height);
     @media only screen and (max-width: 600px) {
         min-height: calc(100vh - 50px - $footer-height-mobile);
     }
 }
 
-// NAVIGATION
-.jmg-navbar {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: $nav-bar-height;
-    background: $side-bar-bg;
-    position: fixed;
-    z-index: 1;
-    overflow: auto;
-    a {
-        text-decoration: none;
-    }
-}
-
-.nav-label {
-    font-family: $secondary-font;
-    font-size: 15px !important;
-    padding: 18px;
-    font-weight: 600;
-    color: $nav-label-color;
-    display: flex;
-    justify-content: center;
-}
-
-// .jmg-nav-item {
-//     width: 100%;
-//     border: none;
-//     display: inline-block;
-//     padding: 8px 16px;
-//     vertical-align: middle;
-//     overflow: hidden;
-//     text-decoration: none;
-//     color: $nav-btn-color;
-//     text-align: center;
-//     cursor: pointer;
-//     white-space: nowrap;
-//     -webkit-touch-callout: none;
-//     -webkit-user-select: none;
-//     -khtml-user-select: none;
-//     -moz-user-select: none;
-//     -ms-user-select: none;
-//     user-select: none;
-//     &:hover,
-//     &:active,
-//     &:focus {
-//         color: $nav-btn-hover;
-//         background-color: $nav-btn-color;
-//         .nav-label {
-//             color: $nav-btn-hover;
-//         }
-//     }
-// }
-
-.jmg-nav-active {
-    color: $nav-btn-hover;
-    background-color: $nav-label-color;
-    text-decoration: none;
-    border-radius: 5px;
-
-    .nav-label {
-        color: $nav-btn-hover;
-    }
-}
-
-.dev-nav-active {}
-
-.jmg-nav-mobile {
-    font-size: 14px;
-    color: $nav-btn-hover;
-    background-color: $side-bar-bg;
-    .nav-label {
-        color: $nav-btn-hover;
+@media only screen and (min-width: 600px) {
+    .hide-medium,
+    .hide-large {
+        display: none;
     }
 }
 
@@ -358,13 +325,7 @@ body {
     }
 }
 
-//small and medium size screen
-@media (max-width: 992px) {
-    .jmg-navbar {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-}
+
 
 // medium screen
 @media (max-width: 992px) and (min-width: 601px) {
@@ -384,9 +345,6 @@ body {
 @media (min-width: 993px) {
     .hide-large {
         display: none !important;
-    }
-    .jmg-navbar {
-        display: flex !important;
     }
     .article-card-wrapper {
         min-width: 400px;
@@ -528,6 +486,9 @@ code {
         flex-direction: column;
         row-gap: 20px;
     }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .related-article-sm {
@@ -589,6 +550,7 @@ code {
     border-radius: 6px;
     background-color: rgba(101, 198, 253, 0.322);
     padding: 10px 20px;
+    margin-top: 20px;
 }
 
 .article-table {
@@ -849,7 +811,10 @@ fa-icon .fa-2x {
     width: 100%;
     max-height: none;
     max-width: none;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .auto-size {
@@ -871,17 +836,37 @@ fa-icon .fa-2x {
     display: flex;
 }
 
-.video-container {
-    width: 100vw;
-    height: 500px; /* Set your desired height */
+.related-article-item {
+    margin: 10px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    position: sticky; /* Sticky positioning */
-    top: 0; /* Stick to the top of the viewport */
-    z-index: 1; /* Ensure video is above other content if necessary */
-  }
-  
-  .video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.related-article-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.related-article-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.related-article-img-wrapper {
+    overflow: hidden;
+}
+
+.related-article-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.related-article-title {
+    font-size: 1.2em;
+    margin: 10px 0;
+}

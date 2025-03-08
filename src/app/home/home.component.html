@@ -1,17 +1,19 @@
 <main>
     <header>
         <section class="app-header-section">
-            <!-- <img style="width: 100%; display:block;" src="/assets/images/woman-working-from-home.jpg" /> -->
+            
+            <img ngSrc="/assets/images/woman-working-from-home.jpg" alt="Working from home" class="header-image" fill priority>
             <div class="app-header-content">
-                <h1 class="app-header-font mb-10 no-wrap">Group Nook</h1>
-                <h2 class="subheader-font-white pt-10 pb-20 hide-small no-wrap">The Online Hub</h2>
-                <h2 class="app-subheader-font hide-medium hide-large mt-10 pb-20">The Online Hub</h2>
-                <h3 class="subheader-font-black mb-0">Learn About Work From Home Culture</h3>
-                <div class="app-calltoaction-btn">
-                    <jmg-btn (onClick)="navigateTo('blog')">Get Started</jmg-btn>
+                <div class="app-header-overlay">
+                    <h1 class="app-header-font no-wrap">Get Started Now</h1>
+                    <h2 class="subheader-font-primary mt-5 pb-20 hide-small no-wrap">Affiliate Marketing for Beginners</h2>
+                    <h2 class="app-subheader-font hide-medium hide-large mt-10 pb-20">Affiliate Marketing Community for Beginners</h2>
+                    <h3 class="subheader-font-secondary mb-0">100% Free, Never Pay, No Risk, No Subscription</h3>
+                    <div class="app-calltoaction-btn">
+                        <jmg-btn (onClick)="navigateTo('blog')">Get Started</jmg-btn>
+                    </div>
                 </div>
             </div>
-
         </section>
     </header>
     <section class="app-main-content">
@@ -36,25 +38,7 @@
                 <section class="app-main-col-right-top">
                     <ng-container *ngTemplateOutlet="appIntro"></ng-container>
                 </section>
-                <section>
-                    <h3 class="app-header-font-small mb-20">Sustainability</h3>
-                    
-                    <h3 class="app-subheader-font mb-20">How does it work?</h3>
-                    <div class="mb-40">
-                        <iframe class="auto-size" style="min-height:190px;"
-                            src="https://www.youtube-nocookie.com/embed/HJ9yzkwX5N8" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    </div>
-                    <div class="mb-40">
-                        <iframe class="auto-size" style="min-height:190px;"
-                            src="https://www.youtube-nocookie.com/embed/RYZrp6Mqw2E" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    </div>
-                </section>
+                
             </section>
 
         </div>

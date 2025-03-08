@@ -8,7 +8,7 @@ import { ArticleParts } from './shared/interfaces/blog-interface';
 const baseUrl = environment.url;
 const imagePath = 'assets/images';
 const iconPath = 'assets/icons';
-const defaultImage = "jmg-512";
+const defaultImage = "icon-512";
 const defaultImageType = ".png";
 
 export class RouteData implements Route {
