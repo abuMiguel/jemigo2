@@ -8,7 +8,6 @@ import { FormsModule } from "@angular/forms";
 @Component({
     selector: "product-management",
     templateUrl: "./prod-management.component.html",
-    standalone: true,
     imports: [
         CommonModule,
         FormsModule,

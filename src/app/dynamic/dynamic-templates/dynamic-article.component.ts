@@ -7,15 +7,14 @@ import { ArticlePageContentsComponent } from '../../article/article-page-content
 import { AmzProductComponent } from '../../article/amz-product.component';
 
 @Component({
-  selector: 'dynamic-article',
-  templateUrl: './dynamic-article.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ArticleComponent,
-    ArticlePageContentsComponent,
-    AmzProductComponent,
-  ]
+    selector: 'dynamic-article',
+    templateUrl: './dynamic-article.component.html',
+    imports: [
+        CommonModule,
+        ArticleComponent,
+        ArticlePageContentsComponent,
+        AmzProductComponent,
+    ]
 })
 export class DynamicArticleComponent implements ArticleInterface {
   data: AppData;

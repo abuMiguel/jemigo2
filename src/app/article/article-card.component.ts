@@ -3,13 +3,12 @@ import { Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'article-card',
-  templateUrl: './article-card.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-  ]
+    selector: 'article-card',
+    templateUrl: './article-card.component.html',
+    imports: [
+        CommonModule,
+        RouterLink,
+    ]
 })
 export class ArticleCardComponent {
 

@@ -5,7 +5,8 @@ import { AppService } from '../../app.service';
 
 
 @Component({
-  templateUrl: './successful-mindset.component.html'
+    templateUrl: './successful-mindset.component.html',
+    standalone: false
 })
 export class SuccessfulMindsetComponent implements OnInit {
   data = data.successMindsetData.data;

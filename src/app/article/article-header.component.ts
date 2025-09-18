@@ -6,18 +6,17 @@ import { ArticleShareComponent } from './article-share.component';
 import { imageLoaderConfig } from '../shared/services/providers';
 
 @Component({
-  selector: 'article-header',
-  templateUrl: './article-header.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ResourceUrlSanitizerPipe,
-    ArticleShareComponent,
-    NgOptimizedImage,
-  ],
-  providers: [
-    ...imageLoaderConfig
-  ]
+    selector: 'article-header',
+    templateUrl: './article-header.component.html',
+    imports: [
+        CommonModule,
+        ResourceUrlSanitizerPipe,
+        ArticleShareComponent,
+        NgOptimizedImage,
+    ],
+    providers: [
+        ...imageLoaderConfig
+    ]
 })
 export class ArticleHeaderComponent {
   @Input() data: AppData | undefined = undefined;

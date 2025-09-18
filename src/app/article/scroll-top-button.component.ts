@@ -8,7 +8,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
     selector: 'scroll-top-button',
     templateUrl: './scroll-top-button.component.html',
-    standalone: true,
     imports: [
         CommonModule,
         FontAwesomeModule

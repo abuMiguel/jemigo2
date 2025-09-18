@@ -5,7 +5,8 @@ import { AppService } from '../../app.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  templateUrl: './wfh-part1.component.html'
+    templateUrl: './wfh-part1.component.html',
+    standalone: false
 })
 export class WfhPart1Component {
 

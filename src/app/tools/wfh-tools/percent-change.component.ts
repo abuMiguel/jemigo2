@@ -7,6 +7,7 @@ import { AppService } from '../../app.service';
     selector: 'percent-change',
     templateUrl: './percent-change.component.html',
     styleUrls: ['../tools.component.css'],
+    standalone: false
 })
 export class PercentChangeToolComponent implements OnInit {
     data = data.percentChangeToolData.data;

@@ -5,13 +5,12 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 type AmzProdSize = "sm" | "md" | "lg";
 
 @Component({
-  selector: 'amz-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-  ],
-  styleUrl: './../../styles/amz.scss',
-  template: `
+    selector: 'amz-product',
+    imports: [
+        CommonModule,
+    ],
+    styleUrl: './../../styles/amz.scss',
+    template: `
   <ng-container *ngIf="amzProd && isBrowser">
     <ng-container *ngIf="singleProduct; else linkAndButton">
       <section class="center images-section">

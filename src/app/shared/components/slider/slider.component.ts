@@ -5,13 +5,12 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { AmzProduct } from '../../interfaces/blog-interface';
 
 @Component({
-  selector: 'slider',
-  templateUrl: './slider.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FontAwesomeModule
-  ]
+    selector: 'slider',
+    templateUrl: './slider.component.html',
+    imports: [
+        CommonModule,
+        FontAwesomeModule
+    ]
 })
 export class SliderComponent {
   @Input() items: Array<AmzProduct> = [];

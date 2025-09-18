@@ -11,16 +11,15 @@ import { ButtonComponent } from '../shared/components/button/button.component';
 import { ArticleCardComponent } from '../article/article-card.component';
 
 @Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  standalone: true,
-  imports: [
-    FontAwesomeModule,
-    CommonModule,
-    ArticleRelatedComponent,
-    ArticleCardComponent,
-    ButtonComponent
-  ],
+    selector: 'home',
+    templateUrl: './home.component.html',
+    imports: [
+        FontAwesomeModule,
+        CommonModule,
+        ArticleRelatedComponent,
+        ArticleCardComponent,
+        ButtonComponent
+    ]
 })
 export class HomeComponent implements OnInit {
   faAngleRight = faAngleRight; faTree = faTree;

@@ -5,17 +5,16 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { imageLoaderConfig } from '../shared/services/providers';
 
 @Component({
-  selector: 'article-related',
-  templateUrl: './article-related.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    NgOptimizedImage,
-  ],
-  providers: [
-    ...imageLoaderConfig
-  ]
+    selector: 'article-related',
+    templateUrl: './article-related.component.html',
+    imports: [
+        CommonModule,
+        RouterLink,
+        NgOptimizedImage,
+    ],
+    providers: [
+        ...imageLoaderConfig
+    ]
 })
 export class ArticleRelatedComponent {
 

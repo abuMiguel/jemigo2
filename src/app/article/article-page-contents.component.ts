@@ -3,12 +3,11 @@ import { AppData } from '../app.data';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'article-page-contents',
-  templateUrl: './article-page-contents.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-  ],
+    selector: 'article-page-contents',
+    templateUrl: './article-page-contents.component.html',
+    imports: [
+        CommonModule,
+    ]
 })
 export class ArticlePageContentsComponent {
   data = input.required<AppData>();

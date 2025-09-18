@@ -5,7 +5,8 @@ import { AmzProduct } from '../../shared/interfaces/blog-interface';
 import { AppService } from '../../app.service';
 
 @Component({
-  templateUrl: './wfh-part2.component.html'
+    templateUrl: './wfh-part2.component.html',
+    standalone: false
 })
 export class WfhPart2Component implements OnInit{
 

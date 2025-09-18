@@ -7,8 +7,9 @@ import { Router } from "@angular/router";
 import { AppService } from "../app.service";
 
 @Component({
-  selector: "admin",
-  templateUrl: "./admin.component.html",
+    selector: "admin",
+    templateUrl: "./admin.component.html",
+    standalone: false
 })
 export class AdminComponent implements OnInit {
   title = data.aboutData.title;

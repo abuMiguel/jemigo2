@@ -4,13 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ShareButtons } from 'ngx-sharebuttons/buttons';
 
 @Component({
-  selector: 'article-share',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ShareButtons,
-  ],
-  template: `
+    selector: 'article-share',
+    imports: [
+        CommonModule,
+        ShareButtons,
+    ],
+    template: `
   <share-buttons theme="modern-dark"
     [include]="['copy', 'linkedin', 'pinterest', 'facebook', 'reddit']"
     [showIcon]="true" 

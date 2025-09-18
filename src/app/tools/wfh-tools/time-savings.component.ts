@@ -7,7 +7,8 @@ import { NumRangePipe } from '../../shared/pipes/num-range.pipe';
 @Component({
     selector: 'time-savings',
     templateUrl: './time-savings.component.html',
-    providers: [NumRangePipe]
+    providers: [NumRangePipe],
+    standalone: false
 })
 export class TimeSavingsToolComponent implements OnInit{
     data = data.wfhTimeSavingsToolData.data;

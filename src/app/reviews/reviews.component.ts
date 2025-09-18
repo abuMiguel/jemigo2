@@ -9,16 +9,15 @@ import { ButtonComponent } from '../shared/components/button/button.component';
 import { ArticleDisclosureComponent } from '../article/article-disclosure.component';
 import { AmzProductComponent } from '../article/amz-product.component';
 @Component({
-  selector: 'reviews',
-  templateUrl: './reviews.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ArticleRelatedComponent,
-    ButtonComponent,
-    ArticleDisclosureComponent,
-    AmzProductComponent
-  ]
+    selector: 'reviews',
+    templateUrl: './reviews.component.html',
+    imports: [
+        CommonModule,
+        ArticleRelatedComponent,
+        ButtonComponent,
+        ArticleDisclosureComponent,
+        AmzProductComponent
+    ]
 })
 export class ReviewsComponent {
   allReviews = [

@@ -6,12 +6,11 @@ import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { DynamicArticleComponent } from "./dynamic-templates/dynamic-article.component";
 
 @Component({
-  templateUrl: "./dynamic.component.html",
-  standalone: true,
-  imports: [
-    CommonModule,
-    DynamicArticleComponent
-]
+    templateUrl: "./dynamic.component.html",
+    imports: [
+        CommonModule,
+        DynamicArticleComponent
+    ]
 })
 export class DynamicComponent implements OnInit, AfterViewInit {
   @ViewChild(DynamicArticleComponent, { static: true }) articleHost!: DynamicArticleComponent;

@@ -5,7 +5,8 @@ import { AppService } from '../../app.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  templateUrl: './diy-cable-management.component.html'
+    templateUrl: './diy-cable-management.component.html',
+    standalone: false
 })
 export class DiyCableManagementComponent {
 

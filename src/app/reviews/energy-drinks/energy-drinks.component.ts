@@ -8,14 +8,13 @@ import { ArticleDisclosureComponent } from '../../article/article-disclosure.com
 import { AmzProductComponent } from '../../article/amz-product.component';
 
 @Component({
-  templateUrl: './energy-drinks.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ArticleHeaderComponent,
-    ArticleDisclosureComponent,
-    AmzProductComponent
-  ]
+    templateUrl: './energy-drinks.component.html',
+    imports: [
+        CommonModule,
+        ArticleHeaderComponent,
+        ArticleDisclosureComponent,
+        AmzProductComponent
+    ]
 })
 export class EnergyDrinksComponent implements OnInit {
   data = data.reviewEnergyDrinksData.data;

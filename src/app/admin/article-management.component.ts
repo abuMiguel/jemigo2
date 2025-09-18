@@ -7,17 +7,16 @@ import { FormsModule } from "@angular/forms";
 import Quill, { Delta } from "quill";
 
 @Component({
-  selector: "article-management",
-  templateUrl: "./article-management.component.html",
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "article-management",
+    templateUrl: "./article-management.component.html",
+    imports: [
+        CommonModule,
+        FormsModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`
     @import 'quill/dist/quill.snow.css';
-  `],
+  `]
 })
 export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDestroy {
 

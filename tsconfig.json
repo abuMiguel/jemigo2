@@ -14,7 +14,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "target": "ES2022",
     "skipLibCheck": true,
     "lib": [

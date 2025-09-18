@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { RouteData, data } from '../app.data';
 import { BlogService } from '../blog.service';
 @Component({
-  selector: 'blog',
-  templateUrl: './blog.component.html'
+    selector: 'blog',
+    templateUrl: './blog.component.html',
+    standalone: false
 })
 export class BlogComponent implements OnInit {
   data = data.blogData;
