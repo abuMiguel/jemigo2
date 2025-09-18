@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'article-disclosure',
+    standalone: true,
     imports: [
         CommonModule
     ],

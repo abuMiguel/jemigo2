@@ -12,7 +12,6 @@ import {
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouterModule, Routes, ExtraOptions } from "@angular/router";
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
-import { CommonModule } from "@angular/common";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { LayoutModule } from "@angular/cdk/layout";
@@ -115,7 +114,6 @@ const routerOptions: ExtraOptions = {
   bootstrap: [], 
   imports: [
     BrowserModule,
-    CommonModule,
     DynamicArticleComponent,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes, routerOptions),

@@ -9,7 +9,8 @@ import { AmzProductComponent } from '../../article/amz-product.component';
 
 @Component({
     templateUrl: './energy-drinks.component.html',
-    imports: [
+  standalone: true,
+  imports: [
         CommonModule,
         ArticleHeaderComponent,
         ArticleDisclosureComponent,

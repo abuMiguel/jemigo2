@@ -1,3 +1,6 @@
+@use "./colors" as colors;
+@use "./fonts" as fonts;
+
 .jmg-btn {
     font-size: 18px;
     text-transform: none;
@@ -13,31 +16,31 @@
     }
     &:active,
     &:focus {
-        outline: $darkerlightblue dotted 2px;
+        outline: colors.$darkerlightblue dotted 2px;
     }
 }
 
 .jmg-btn-orange {
     @extend .jmg-btn;
-    background-color: $orange;
+    background-color: colors.$orange;
     &:hover {
-        background-color: $darkerorange;
+        background-color: colors.$darkerorange;
     }
 }
 
 .jmg-btn-blue {
     @extend .jmg-btn;
-    background-color: $lightblue;
+    background-color: colors.$lightblue;
     &:hover {
-        background-color: $darkerlightblue;
+        background-color: colors.$darkerlightblue;
     }
 }
 
 .jmg-btn-green {
     @extend .jmg-btn;
-    background-color: $green;
+    background-color: colors.$green;
     &:hover {
-        background-color: $darkergreen;
+        background-color: colors.$darkergreen;
     }
 }
 
@@ -45,14 +48,14 @@
     padding: 0;
     margin: 0;
     background: none;
-    font-family: $main-font;
+    font-family: fonts.$main-font;
     border: none;
     cursor: pointer;
-    color: $darkblue;
+    color: colors.$darkblue;
     font-size: 20px;
     font-weight: bold;
     &:hover {
-        color: $lightblue;
+        color: colors.$lightblue;
     }
 }
 
@@ -94,7 +97,7 @@
     }
     &:active,
     &:focus {
-        outline: $darkerlightblue dotted 2px;
+        outline: colors.$darkerlightblue dotted 2px;
     }
 }
 

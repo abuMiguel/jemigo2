@@ -1,3 +1,5 @@
+@use "./colors" as colors;
+
 $main-font: Source Serif Pro,
     serif;
 $secondary-font: Source Sans Pro,
@@ -14,7 +16,7 @@ $secondary-font: Source Sans Pro,
 }
 
 .header-font {
-    color: $darkblue;
+    color: colors.$darkblue;
     font-weight: 700;
     margin: 0;
     padding: 0;
@@ -39,11 +41,11 @@ $secondary-font: Source Sans Pro,
 
 .app-header-font-lightblue {
     @extend .app-header-font;
-    color: $lightblue;
+    color: colors.$lightblue;
 }
 
 .subheader-font {
-    color: $lightblue;
+    color: colors.$lightblue;
     font-family: $secondary-font;
     font-size: 22px;
     font-weight: 400;
@@ -58,7 +60,7 @@ $secondary-font: Source Sans Pro,
 }
 
 .app-subheader-font {
-    color: $lightblue;
+    color: colors.$lightblue;
     @extend .subheader-font;
 }
 

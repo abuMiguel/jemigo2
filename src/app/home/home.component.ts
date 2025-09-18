@@ -11,20 +11,21 @@ import { ButtonComponent } from '../shared/components/button/button.component';
 import { ArticleCardComponent } from '../article/article-card.component';
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html',
-    imports: [
-        FontAwesomeModule,
-        CommonModule,
-        ArticleRelatedComponent,
-        ArticleCardComponent,
-        ButtonComponent
-    ]
+  selector: 'home',
+  templateUrl: './home.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    ArticleRelatedComponent,
+    ArticleCardComponent,
+    ButtonComponent
+  ]
 })
 export class HomeComponent implements OnInit {
   faAngleRight = faAngleRight; faTree = faTree;
   isMobile = false;
-  
+
   featured = [
     {
       title: data.wfhGuideData.title,
@@ -58,17 +59,17 @@ export class HomeComponent implements OnInit {
 
   constructor(public navService: MainNavService, public appService: AppService,
     public router: Router) {
-     }
+  }
 
   ngOnInit(): void {
     this.navService.isHandset$.subscribe(mobile => this.isMobile = mobile);
   }
-  
-  navigateTo(route: string){
+
+  navigateTo(route: string) {
     this.router.navigate([route]);
   }
 
-  plantTrees(){
+  plantTrees() {
     window.open('https://forest-fundraiser.raisely.com/jemigo/', '_blank');
   }
 }

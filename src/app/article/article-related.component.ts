@@ -1,20 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RouteData } from '../app.data';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { imageLoaderConfig } from '../shared/services/providers';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'article-related',
     templateUrl: './article-related.component.html',
-    imports: [
-        CommonModule,
+  standalone: true,
+  imports: [
         RouterLink,
-        NgOptimizedImage,
+        CommonModule,
     ],
-    providers: [
-        ...imageLoaderConfig
-    ]
+
 })
 export class ArticleRelatedComponent {
 

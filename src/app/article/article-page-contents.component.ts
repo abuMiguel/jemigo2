@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'article-page-contents',
     templateUrl: './article-page-contents.component.html',
-    imports: [
+  standalone: true,
+  imports: [
         CommonModule,
     ]
 })

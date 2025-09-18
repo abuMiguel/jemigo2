@@ -8,6 +8,7 @@ import { ScrollTopButtonComponent } from './scroll-top-button.component';
 @Component({
     selector: 'jmg-article',
     templateUrl: './article.component.html',
+    standalone: true,
     imports: [
         CommonModule,
         ArticleHeaderComponent,

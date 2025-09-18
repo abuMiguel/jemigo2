@@ -1,22 +1,16 @@
 import { Component, Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { AppData } from '../app.data';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ResourceUrlSanitizerPipe } from '../shared/pipes/url-sanitize-resource.pipe';
 import { ArticleShareComponent } from './article-share.component';
-import { imageLoaderConfig } from '../shared/services/providers';
 
 @Component({
     selector: 'article-header',
     templateUrl: './article-header.component.html',
-    imports: [
-        CommonModule,
-        ResourceUrlSanitizerPipe,
+  standalone: true,
+  imports: [
         ArticleShareComponent,
-        NgOptimizedImage,
+        DatePipe,
     ],
-    providers: [
-        ...imageLoaderConfig
-    ]
 })
 export class ArticleHeaderComponent {
   @Input() data: AppData | undefined = undefined;

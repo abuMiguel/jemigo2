@@ -7,7 +7,8 @@ import { AmzProduct } from '../../interfaces/blog-interface';
 @Component({
     selector: 'slider',
     templateUrl: './slider.component.html',
-    imports: [
+  standalone: true,
+  imports: [
         CommonModule,
         FontAwesomeModule
     ]

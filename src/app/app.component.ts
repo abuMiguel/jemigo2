@@ -10,15 +10,15 @@ import { environment } from '../environments/environment';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    providers: [Router],
-    imports: [
-        RouterModule,
-        FontAwesomeModule,
-        CommonModule,
-        FooterComponent,
-        RouterOutlet,
-        RouterLink,
-    ]
+  standalone: true,
+  imports: [
+    RouterModule,
+    FontAwesomeModule,
+    CommonModule,
+    FooterComponent,
+    RouterOutlet,
+    RouterLink,
+  ]
 })
 export class AppComponent implements OnInit {
   faUser = faUser; faStar = faStar;

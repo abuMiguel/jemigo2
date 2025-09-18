@@ -11,7 +11,8 @@ import { AmzProductComponent } from '../article/amz-product.component';
 @Component({
     selector: 'reviews',
     templateUrl: './reviews.component.html',
-    imports: [
+  standalone: true,
+  imports: [
         CommonModule,
         ArticleRelatedComponent,
         ButtonComponent,

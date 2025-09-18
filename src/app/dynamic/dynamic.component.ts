@@ -2,15 +2,15 @@ import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, ViewChild } from
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppData } from "../app.data";
 import { BlogService } from "../blog.service";
-import { CommonModule, isPlatformBrowser } from "@angular/common";
+import { isPlatformBrowser } from "@angular/common";
 import { DynamicArticleComponent } from "./dynamic-templates/dynamic-article.component";
 
 @Component({
-    templateUrl: "./dynamic.component.html",
-    imports: [
-        CommonModule,
-        DynamicArticleComponent
-    ]
+  templateUrl: "./dynamic.component.html",
+  standalone: true,
+  imports: [
+    DynamicArticleComponent
+  ]
 })
 export class DynamicComponent implements OnInit, AfterViewInit {
   @ViewChild(DynamicArticleComponent, { static: true }) articleHost!: DynamicArticleComponent;
@@ -43,7 +43,7 @@ export class DynamicComponent implements OnInit, AfterViewInit {
   }
 
   loadComponent(data: AppData) {
-    if(data.component){
+    if (data.component) {
       this.articleHost.data = data;
     }
   }
@@ -51,13 +51,13 @@ export class DynamicComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() =>
-      this.scrollToAnchor(), 500);
+        this.scrollToAnchor(), 500);
     }
   }
 
-  scrollToAnchor(){
+  scrollToAnchor() {
     const fragment = this.activatedRoute.snapshot.fragment;
-    if(fragment){
+    if (fragment) {
       const element = document.getElementById(fragment);
       element?.scrollIntoView({ behavior: "smooth" });
     }

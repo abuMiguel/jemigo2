@@ -1,3 +1,9 @@
+@use "./vars" as vars;
+
+@use "./colors" as colors;
+
+@use "./fonts" as fonts;
+
 .top-nav {
     position: relative;
     z-index: 999;
@@ -5,7 +11,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: $darkblue;
+    background-color: colors.$darkblue;
     color: #FFF;
     height: 50px;
     padding: 1em;
@@ -74,7 +80,7 @@
     transform: rotate(-405deg);
 }
 
-@media (max-width: $screen-max-md) {
+@media (max-width: vars.$screen-max-md) {
     .menu-button-container {
         display: flex;
     }
@@ -110,7 +116,7 @@
         background-color: white;
     }
     .menu>li>a {
-        font-family: $secondary-font;
+        font-family: fonts.$secondary-font;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -123,7 +129,7 @@
         &:hover,
         &:active,
         &:focus {
-            background-color: $lightbluetransparent;
+            background-color: colors.$lightbluetransparent;
         }
     }
     .menu>li:not(:last-child) {

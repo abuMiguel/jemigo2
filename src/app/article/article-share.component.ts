@@ -5,7 +5,8 @@ import { ShareButtons } from 'ngx-sharebuttons/buttons';
 
 @Component({
     selector: 'article-share',
-    imports: [
+       standalone: true,
+       imports: [
         CommonModule,
         ShareButtons,
     ],

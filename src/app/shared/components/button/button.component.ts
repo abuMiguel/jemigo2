@@ -6,7 +6,8 @@ import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 @Component({
     selector: 'jmg-btn',
     templateUrl: './button.component.html',
-    imports: [
+  standalone: true,
+  imports: [
         FontAwesomeModule,
         CommonModule,
     ]

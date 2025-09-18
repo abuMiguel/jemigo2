@@ -4,7 +4,8 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'quote',
     templateUrl: './quote.component.html',
-    imports: [
+         standalone: true,
+         imports: [
         CommonModule
     ]
 })
