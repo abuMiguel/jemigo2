@@ -1,15 +1,21 @@
 <div id="controlButtons" style="width: 90px; position: fixed; padding-right: 5px; border-right: 1px dotted grey;">
-    <button class="w-100" style="min-height:45px;" (click)="add('section')">Section</button>
+    <!-- <button class="w-100" style="min-height:45px;" (click)="add('section')">Section</button>
     <button class="w-100" style="min-height:45px;" (click)="add('contents')">Page Contents</button>
     <button class="w-100" style="min-height:45px;" (click)="add('h2')">Header</button>
     <button class="w-100" style="min-height:45px;" (click)="add('p')">Paragraph</button>
     <button class="w-100" style="min-height:45px;" (click)="add('link')">Affiliate Link</button>
     <br><br>
-    <button class="w-100" style="min-height:25px;" (click)="deleteSelected()">Delete</button>
+    <button class="w-100" style="min-height:25px;" (click)="deleteSelected()">Delete</button> -->
     <br><br>
     <button class="w-100" style="min-height:45px;" (click)="saveArticle()">Save</button>
     <br><br>
-    <button class="w-100" [disabled]="ar?.published" style="min-height:45px;" (click)="publishArticle()">Publish</button>
+    <button class="w-100" [disabled]="ar?.published" style="min-height:45px;"
+        (click)="publishArticle()">Publish</button>
+    <br><br>
+    <button class="w-100" style="min-height:45px;" (click)="testSaveQuill()">Test</button>
+    <br><br>
+    <button class="w-100" style="min-height:45px;" (click)="testRestoreArticle()">Restore</button>
+    <br><br>
 </div>
 
 <main style="margin-left:90px;">
@@ -40,8 +46,10 @@
                 <div>
                     <div><strong>image</strong></div>
                     <label style="display:inline-block; width: 90px;">name</label>
-                    <input style="width: 60%;" type="text" [(ngModel)]="ar.imageName">
-                    <input style="width: 20%;" type="text" [(ngModel)]="ar.imageFormat" placeholder=".jpg, .png, .webp">
+                    <input style="width: 60%;" type="text" [(ngModel)]="ar.imagePath">
+
+                    <!-- <input style="width: 60%;" type="text" [(ngModel)]="ar.imageName"> -->
+                    <!-- <input style="width: 20%;" type="text" [(ngModel)]="ar.imageFormat" placeholder=".jpg, .png, .webp"> -->
                 </div>
                 <div>
                     <label style="display:inline-block; width: 90px;">alt</label>
@@ -54,12 +62,20 @@
             </div>
             <h3>Article &nbsp;&nbsp;&nbsp; ({{ ar.published ? "Published" : "Unpublished" }})</h3>
             <!-- <div *ngIf="!ar?.published; else publishedArticle" id="articleContainer"> -->
+
+            <!-- Quill test -->
+            <div #editor></div>
+            <!-- End Quill test -->
+
             <div id="articleContainer">
-                <div *ngFor="let part of ar.article.parts; let i = index; trackBy: trackByFn" (click)="selectRow(i)" [ngStyle]="{'background-color': selectedRow === i ? 'lightgrey' : ''}">
+                <!-- <div *ngFor="let part of ar.article.parts; let i = index; trackBy: trackByFn" (click)="selectRow(i)"
+                    [ngStyle]="{'background-color': selectedRow === i ? 'lightgrey' : ''}">
                     <div [ngStyle]="{'padding-left': part.tag !== 'section' ? '15px' : '5px'}">
                         <ng-container *ngIf="part.tag ==='p'">
-                            <label [for]="'p' + i" style="vertical-align: top;min-width:25px;display:inline-block;">p</label>
-                            <textarea rows="3" style="width:90%;" [(ngModel)]="part.value" [name]="'p' + i" [id]="'p' + i" [ngModelOptions]="{standalone: true}">
+                            <label [for]="'p' + i"
+                                style="vertical-align: top;min-width:25px;display:inline-block;">p</label>
+                            <textarea rows="3" style="width:90%;" [(ngModel)]="part.value" [name]="'p' + i"
+                                [id]="'p' + i" [ngModelOptions]="{standalone: true}">
                         </textarea>
                         </ng-container>
                         <ng-container *ngIf="part.tag ==='section'">
@@ -71,18 +87,21 @@
                         <ng-container *ngIf="part.tag ==='h2'">
                             <label style="min-width:25px;display:inline-block;" [for]="'h2' + i">H</label>
                             <label style="min-width:25px;display:inline-block;" [for]="'h2' + i">id</label>
-                            <input style="width: 15%;" [(ngModel)]="part.id" [name]="'h2id' + i" [id]="'h2id' + i" [ngModelOptions]="{standalone: true}">
-                            <input style="width: 65%;" [(ngModel)]="part.value" [name]="'h2' + i" [id]="'h2' + i" [ngModelOptions]="{standalone: true}">
+                            <input style="width: 15%;" [(ngModel)]="part.id" [name]="'h2id' + i" [id]="'h2id' + i"
+                                [ngModelOptions]="{standalone: true}">
+                            <input style="width: 65%;" [(ngModel)]="part.value" [name]="'h2' + i" [id]="'h2' + i"
+                                [ngModelOptions]="{standalone: true}">
                         </ng-container>
                         <ng-container *ngIf="part.tag ==='link'">
                             <div style="background-color: rgb(227, 214, 198);">affiliate links</div>
                             <div>
                                 <label style="display:inline-block;" [for]="'prodId' + i">ASIN</label>
-                                <input style="width:40%;" [(ngModel)]="part.id" [name]="'prodId' + i" [id]="'prodId' + i" [ngModelOptions]="{standalone: true}">
+                                <input style="width:40%;" [(ngModel)]="part.id" [name]="'prodId' + i"
+                                    [id]="'prodId' + i" [ngModelOptions]="{standalone: true}">
                             </div>
                         </ng-container>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- <ng-template #publishedArticle>
                 <textarea rows="40" style="width:90%;" [(ngModel)]="ar.article" [ngModelOptions]="{standalone: true}">

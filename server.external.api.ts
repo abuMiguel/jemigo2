@@ -78,7 +78,7 @@ export abstract class Amazon {
   //     const item = {
   //       ASIN: "B08WT1DBDF",
   //       DetailPageURL:
-  //         "https://www.amazon.com/dp/B08WT1DBDF?tag=groupnook00-20&linkCode=ogi&th=1&psc=1",
+  //         "https://www.amazon.com/dp/B08WT1DBDF?tag=jemigo00-20&linkCode=ogi&th=1&psc=1",
   //       Images: {
   //         Primary: {
   //           Large: {

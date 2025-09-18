@@ -1,24 +1,26 @@
-@if(data) {
+@if(data){
     <jmg-article [data]="data">
-        @if(data?.article) {
-            <div class="article-content">
-                @for(part of data.article?.parts; track part) {
-                    @switch(part?.tag) {
-                        @case("p") {
-                            <p class="article-paragraph">{{part?.value}}</p>
-                        }
-                        @case("h2") {
-                            <h2 [id]="part?.id ?? ''" class="article-heading">{{part?.value}}</h2>
-                        }
-                        @case("link") {
-                            <amz-product [amzProd]="part?.product"></amz-product>
-                        }
-                        @case("contents") {
-                            <article-page-contents [data]="data" class="article-contents"></article-page-contents>
-                        }
+        @if(data?.article){
+            <div ngSkipHydration [innerHTML]="data.article?.html"></div>
+            <!-- <div ngSkipHydration [innerHTML]="data.article?.html ?? '' | sanitizeHtml"></div> -->
+            <!-- @for(part of data.article?.parts; track part){
+              @switch(part?.tag){
+                 @case("p"){
+                        <p>{{part?.value}}</p>
                     }
+                    @case("h2"){
+                        <h2 [id]="part?.id ?? ''">{{part?.value}}</h2>
+                    }
+                    @case("link"){
+                        <amz-product [amzProd]="part?.product"></amz-product>
+                    }
+                    @case("contents"){
+                        <article-page-contents [data]="data"></article-page-contents>
+                    }
+                    
                 }
-            </div>
+            } -->
         }
+        
     </jmg-article>
 }

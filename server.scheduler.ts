@@ -1,4 +1,4 @@
-import { GNookDb } from "./server.db";
+import { JemigoDb } from "./server.db";
 
 import schedule from "node-schedule";
 import { AmzProduct } from "./server.models";
@@ -11,7 +11,7 @@ export class Scheduler {
   private ruleTest = "*/45 * * * * *";
   private testing = false;
 
-  constructor(private db: GNookDb) { }
+  constructor(private db: JemigoDb) { }
 
   init() {
     //Test rule

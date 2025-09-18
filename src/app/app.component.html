@@ -1,42 +1,53 @@
 <!-- Navbar for medium/large screens -->
-<nav class="jmg-navbar hide-small">
-    <div class="navbar-container">
-        <img alt="logo" ngSrc="/assets/images/groupnook-black-bg.png" width="252" height="41.31">
-        <div>
-            <a href="/" routerLink="/" routerLinkActive="jmg-nav-active" [routerLinkActiveOptions]="{exact:true}" onmousedown="return false">
-                <span class="nav-label">HOME</span>
-            </a>
-            <a href="/about" routerLink="about" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
-                <span class="nav-label">ABOUT</span>
-            </a>
-            <a href="/blog" routerLink="blog" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
-                <span class="nav-label">BLOG</span>
-            </a>
-            <a href="/reviews" routerLink="reviews" class="" routerLinkActive="jmg-nav-active" onmousedown="return false">
-                <span class="nav-label">REVIEWS</span>
-            </a>
-        </div>
-    </div>
+<nav class="jmg-sidebar hide-small center-text">
+    <img alt="Jemigo logo" src="/assets/icons/jmg-96.png" style="width:96px;height:96px;padding: 0;">
+    <a href="/" routerLink="/" class="jmg-nav-item jmg-padding-large" routerLinkActive="jmg-nav-active" [routerLinkActiveOptions]="{exact:true}" onmousedown="return false">
+        <fa-icon [icon]="faHouseChimney" size="2x"></fa-icon>
+        <span class="nav-label">HOME</span>
+    </a>
+    <a href="/about" routerLink="about" class="jmg-nav-item jmg-padding-large" routerLinkActive="jmg-nav-active" onmousedown="return false">
+        <fa-icon [icon]="faUser" size="2x"></fa-icon>
+        <span class="nav-label">ABOUT</span>
+    </a>
+    <a href="/blog" routerLink="blog" class="jmg-nav-item jmg-padding-large" routerLinkActive="jmg-nav-active" onmousedown="return false">
+        <fa-icon [icon]="faBlog" size="2x"></fa-icon>
+        <span class="nav-label">BLOG</span>
+    </a>
+    <a href="/reviews" routerLink="reviews" class="jmg-nav-item jmg-padding-large" routerLinkActive="jmg-nav-active" onmousedown="return false">
+        <fa-icon [icon]="faStar" size="2x"></fa-icon>
+        <span class="nav-label">REVIEWS</span>
+    </a>
+    <!-- <a href="/dev" routerLink="dev" class="jmg-nav-item jmg-padding-large" routerLinkActive="jmg-nav-active"
+    onmousedown="return false">
+    <fa-icon [icon]="faCode" size="2x"></fa-icon>
+    <span class="nav-label">DEV</span>
+  </a> -->
+    <a href="/wfh-tools" routerLink="wfh-tools" class="jmg-nav-item jmg-padding-large" routerLinkActive="jmg-nav-active" onmousedown="return false">
+        <fa-icon [icon]="faTools" size="2x"></fa-icon>
+        <span class="nav-label">TOOLS</span>
+    </a>
 </nav>
 
 <!-- Hamburger Navbar for small screens -->
-<section class="top-nav hide-medium hide-large" id="mobile-nav">
+<section class="top-nav hide-medium hide-large">
     <div>
-        <img alt="logo" src="/assets/icons/icon-72.png">
+        <img alt="Jemigo logo" src="/assets/icons/jmg-52.png" style="width:52px;height:31px;padding: 0;vertical-align:bottom;">
     </div>
     <input id="menu-toggle" type="checkbox" />
     <label class='menu-button-container' for="menu-toggle">
-        <div class='menu-button'></div>
-    </label>
+    <div class='menu-button'></div>
+  </label>
     <ul class="menu">
         <li><a href="/" class="jmg-nav-item-mobile">HOME</a></li>
         <li><a href="/about" class="jmg-nav-item-mobile">ABOUT</a></li>
         <li><a href="/blog" class="jmg-nav-item-mobile">BLOG</a></li>
         <li><a href="/reviews" class="jmg-nav-item-mobile">REVIEWS</a></li>
+        <li><a href="/wfh-tools" class="jmg-nav-item-mobile">TOOLS</a></li>
     </ul>
 </section>
 
-<div id="main" style="padding-top: 50px;"> <!-- Add padding to the top to avoid content being hidden -->
+
+<div id="main">
     <div id="content-wrap">
         <router-outlet></router-outlet>
     </div>

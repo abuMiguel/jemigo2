@@ -1,3 +1,11 @@
+@if(!authenticated()){
+    <form style="padding: 10px; height:30px;">
+        <input id="admin-login-pwd" style="width: 200px; margin-right: 10px;" type="password" [(ngModel)]="token" [ngModelOptions]="{standalone: true}">
+        <button class="btn-md" (click)="authenticate()">Authenticate</button>
+    </form>
+
+}
+@else{
 <div style="padding: 5px;text-align: center;">
     <button class="" style="min-height:35px;min-width: 120px;margin-right:5px;" (click)="viewArticleManagement()">Articles</button>
     <button class="" style="min-height:35px;min-width: 120px;" (click)="viewProductManagement()">Products</button>
@@ -5,3 +13,4 @@
 
 <article-management [hidden]="view !== 'article'" />
 <product-management [hidden]="view !== 'product'" />
+}

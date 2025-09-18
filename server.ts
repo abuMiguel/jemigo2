@@ -4,7 +4,7 @@ import express from 'express';
 import bootstrap from './src/main.server';
 import helmet from 'helmet';
 import compression from 'compression';
-import { GNookDb } from './server.db';
+import { JemigoDb } from './server.db';
 import cors from 'cors';
 import { Api } from './server.api';
 import 'dotenv/config';
@@ -15,6 +15,7 @@ import mongoose from 'mongoose';
 import robots from 'express-robots-txt'
 
 import { Scheduler } from './server.scheduler';
+import { Util } from './server.util';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export async function app(): Promise<express.Express> {
@@ -31,30 +32,29 @@ export async function app(): Promise<express.Express> {
   server.set('trust proxy', true);
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
-  server.use(helmet());
-  // server.use(
-  //   helmet.contentSecurityPolicy({
-  //     directives: {
-  //       defaultSrc: ["'self'", "https://www.google-analytics.com"],
-  //       scriptSrc: ["'self'", process.env["SITE_NAME"], "https://*.googletagmanager.com", "'unsafe-inline'"],
-  //       scriptSrcAttr: ["'unsafe-inline'"],
-  //       imgSrc: ["'self'", "https: data:", process.env["SITE_NAME"]],
-  //       styleSrc: ["'self'", "'unsafe-inline'", process.env["ROOT_URL"]],
-  //       fontSrc: ["'self'"],
-  //       mediaSrc: ["'self'"],
-  //       frameSrc: ["https://www.youtube-nocookie.com"]
-  //     }
-  //   }));
+  server.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'", "https://www.google-analytics.com"],
+        scriptSrc: ["'self'", process.env["SITE_NAME"], "https://*.googletagmanager.com", "'unsafe-inline'"],
+        scriptSrcAttr: ["'unsafe-inline'"],
+        imgSrc: ["'self'", "https: data:", process.env["SITE_NAME"]],
+        styleSrc: ["'self'", "'unsafe-inline'", process.env["ROOT_URL"]],
+        fontSrc: ["'self'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["https://www.youtube-nocookie.com"]
+      }
+    }));
   server.use(compression());
 
   await mongoose.connect(process.env["MONGODB_URI"]);
 
   const schedulerOn = process.env["NODE_ENV"] === 'production' && !process.env["ROOT_URL"].includes("localhost");
-  
-  const db = new GNookDb();
+
+  const db = new JemigoDb();
 
   if (schedulerOn) {
-    //new Scheduler(db).init();
+    new Scheduler(db).init();
   }
 
   server.disable('x-powered-by');
@@ -70,7 +70,7 @@ export async function app(): Promise<express.Express> {
     robots({
       UserAgent: "*",
       Disallow: "",
-      //Sitemap: process.env["ROOT_URL"] + '/sitemap.txt'
+      Sitemap: process.env["ROOT_URL"] + '/sitemap.xml'
     },
       {
         UserAgent: 'GPTBot',
@@ -90,6 +90,29 @@ export async function app(): Promise<express.Express> {
 
   // Example Express Rest API endpoints
   server.use('/api', apiServer);
+
+  // Serve sitemap.xml as gzip
+  server.get('/sitemap.xml', async (req, res) => {
+    try {
+      // Use cached buffer if available
+      let sitemapBuffer = Util.getCachedSitemapBuffer();
+      if (!sitemapBuffer) {
+        // Retrieve from DB and cache it
+        const sitemapDoc = await db.getSitemap();
+        if (!sitemapDoc || !sitemapDoc.content) {
+          res.status(404).send('Sitemap not found');
+          return;
+        }
+        sitemapBuffer = sitemapDoc.content;
+        Util.setCachedSitemapBuffer(sitemapBuffer);
+      }
+      res.setHeader('Content-Type', 'application/gzip');
+      res.setHeader('Content-Disposition', 'inline; filename="sitemap.xml.gz"');
+      res.send(sitemapBuffer);
+    } catch (err) {
+      res.status(500).send('Error retrieving sitemap');
+    }
+  });
 
   // Serve static files from /browser
   server.get('*.*', express.static(browserDistFolder, {

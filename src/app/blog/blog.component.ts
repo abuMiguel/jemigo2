@@ -17,10 +17,10 @@ export class BlogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.blogService.getBlogRouteData().subscribe(
+    this.blogService.getPublishedBlogRouteData().subscribe(
       blogs => {
         const articles = blogs.filter(b => b.data?.tags?.includes("top"));
-        this.topArticles.push(...articles);
+        this.topArticles.push(data.cableManData, data.wfhGuideData, data.successMindsetData, ...articles);
       });
   }
 

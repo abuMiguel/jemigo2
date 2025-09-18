@@ -20,7 +20,6 @@ import { LayoutModule } from "@angular/cdk/layout";
 import { data } from "./app.data";
 import { DynamicArticleComponent } from "./dynamic/dynamic-templates/dynamic-article.component";
 //import { AmzInterceptor } from "./shared/interceptors/amz-interceptor";
-import { authGuard } from "./auth.guard";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HighlightModule } from "ngx-highlightjs";
 
@@ -32,7 +31,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./about/about.component').then((m) => m.AboutComponent),
   },
-
+  //Tools
+  {
+    path: "wfh-tools",
+    title: data.toolsData.title,
+    data: data.toolsData.data,
+    loadChildren: () =>
+      import("./tools/tools.module").then((m) => m.ToolsModule),
+  },
   //Reviews
   {
     path: "reviews",
@@ -41,6 +47,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./reviews/reviews.component').then((m) => m.ReviewsComponent),
   },
+  {
+    path: "reviews/best-energy-drinks",
+    title: data.reviewEnergyDrinksData.title,
+    loadComponent: () =>
+      import('./reviews/energy-drinks/energy-drinks.component').then((m) => m.EnergyDrinksComponent),
+    data: data.reviewEnergyDrinksData.data,
+  },
   //Blog
   {
     path: "blog",
@@ -48,16 +61,31 @@ export const routes: Routes = [
     data: data.blogData.data,
     loadChildren: () => import("./blog/blog.module").then((m) => m.BlogModule),
   },
-  
+  // old blog path, remove at some point
+  { path: "tips-and-guides", redirectTo: "blog", pathMatch: "full" },
+  {
+    path: "cable-management-guide",
+    title: data.cableManData.title,
+    data: data.cableManData.data,
+    loadChildren: () =>
+      import("./blog/diy-cable-management/diy-cable-management.module").then(
+        (m) => m.DiyCableManagementModule),
+  },
+  //WFH Guide
+  {
+    path: "wfh-guide",
+    title: data.wfhGuideData.title,
+    data: data.wfhGuideData.data,
+    loadChildren: () =>
+      import("./blog/wfh-series/wfh.module").then((m) => m.WfhModule),
+  },
+  //Admin
   {
     path: "admin",
     title: "admin",
     loadChildren: () =>
       import("./admin/admin.module").then((m) => m.AdminModule),
-    canActivate: [authGuard],
-    runGuardsAndResolvers: "always",
   },
-
   //App paths
   {
     path: "404",

@@ -20,7 +20,7 @@ const routes: Routes = [
         FormsModule,
         ArticleManagementComponent,
         ProductManagementComponent,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
     ],
     declarations: [
         AdminComponent

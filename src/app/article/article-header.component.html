@@ -2,7 +2,7 @@
     <h1 class="center" style="margin-bottom: 15px;">{{data?.title}}</h1>
     <div class="center">
         <div class="article-header-image">
-            <img [ngSrc]="data.image.src" ngSrcset="400w, 640w" [alt]="data.image.alt" fill priority>
+            <img [src]="data.image.src" [alt]="data.image.alt">
         </div>
 
         <p class="updated-date">Last Updated: {{ data.modifiedDate | date }}</p>

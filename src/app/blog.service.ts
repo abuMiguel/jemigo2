@@ -10,11 +10,10 @@ import { BlogData } from "./shared/interfaces/blog-interface";
   providedIn: "root",
 })
 export class BlogService {
-
   constructor(
     private http: HttpClient,
   ) { }
-
+  
   getBlogRouteData() {
     return this.getBlogData().pipe(
       map((data) => this.blogDataToRouteData(data)),
@@ -24,8 +23,24 @@ export class BlogService {
     );
   }
 
+  getPublishedBlogRouteData() {
+    return this.getPublishedBlogData().pipe(
+      map((data) => this.blogDataToRouteData(data)),
+      catchError(() => {
+        return of([]);
+      }),
+    );
+  }
+
   getBlogData() {
     return this.http.get<Array<BlogData>>(`/api/blog/data`).pipe(
+      catchError(() => {
+        return of([]);
+      }));
+  }
+
+  getPublishedBlogData() {
+    return this.http.get<Array<BlogData>>(`/api/blog/data/published`).pipe(
       catchError(() => {
         return of([]);
       }));
@@ -69,7 +84,7 @@ export class BlogService {
         parent: "blog",
         title: blog.title,
         description: blog.description,
-        image: new ArticleImage(blog.imageName, blog.imageFormat, blog.imageAlt),
+        image: new ArticleImage(blog.imagePath, "", blog.imageAlt),
         articleDate: blog.articleDate,
         modifiedDate: blog.modifiedDate,
         article: blog.article,

@@ -12,7 +12,14 @@ import { CommonModule } from '@angular/common';
 })
 export class ArticlePageContentsComponent {
   data = input.required<AppData>();
-  headerElements = computed(() => this.data().article?.parts?.filter(el => el?.tag === "h2"));
+  headerElements = computed(() => {
+    const headerIndices = this.data().article?.contents.ops.flatMap((op, i) => {
+      return op?.attributes?.["header"] === 2 ? i - 1 : [];
+    });
+    return headerIndices;
+  });
+
+
 
   constructor(){}
 }

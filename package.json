@@ -1,6 +1,6 @@
 {
-    "name": "groupnook",
-    "version": "1.0.0",
+    "name": "jemigo",
+    "version": "1.0.1",
     "scripts": {
         "ng": "ng",
         "build": "ng build",
@@ -10,9 +10,9 @@
         "tsc": "tsc",
         "start-dev": "npm-run-all -p tsc client server",
         "client": "ng serve",
-        "start:heroku": "node dist/groupnook/server/server.mjs",
-        "start:ssr": "ng run groupnook:serve-ssr",
-        "serve:ssr": "node dist/groupnook/server/server.mjs",
+        "start:heroku": "node dist/jemigo/server/server.mjs",
+        "start:ssr": "ng run jemigo:serve-ssr",
+        "serve:ssr": "node dist/jemigo/server/server.mjs",
         "postinstall": "patch-package",
         "heroku-cleanup": "patch-package"
     },
@@ -51,7 +51,9 @@
         "npm-run-all": "^4.1.5",
         "paapi5-typescript-sdk": "^0.2.0",
         "patch-package": "^8.0.0",
+        "quill": "^2.0.3",
         "rxjs": "7.4",
+        "sitemap": "^8.0.0",
         "tslib": "^2.0.0",
         "zone.js": "^0.14.10"
     },
@@ -64,6 +66,7 @@
         "@types/lodash": "^4.17.4",
         "@types/node": "^20.12.12",
         "@types/node-schedule": "^2.1.7",
+        "@types/quill": "^2.0.14",
         "@typescript-eslint/eslint-plugin": "^7.10.0",
         "@typescript-eslint/parser": "^7.10.0",
         "browser-sync": "^3.0.2",

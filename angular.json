@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "groupnook": {
+        "jemigo": {
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
@@ -13,7 +13,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/groupnook",
+                        "outputPath": "dist/jemigo",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": ["zone.js"],
@@ -61,10 +61,10 @@
                     },
                     "configurations": {
                         "production": {
-                            "buildTarget": "groupnook:build:production"
+                            "buildTarget": "jemigo:build:production"
                         },
                         "development": {
-                            "buildTarget": "groupnook:build:development"
+                            "buildTarget": "jemigo:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "groupnook:build"
+                        "buildTarget": "jemigo:build"
                     }
                 },
                 "lint": {

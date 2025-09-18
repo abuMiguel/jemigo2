@@ -1,6 +1,12 @@
 <main>
+    <header>
+        <section class="reviews-header content-padding">
+            <h2 class="subheader-font-white mb-0">Jemigo</h2>
+            <h1 class="app-header-font-lightblue mb-20">Reviews</h1>
+        </section>
+    </header>
     <section class="flex-wrapper content-padding" style="justify-content:left;">
-        <p class="pb-40 m-0">Our reviews save you time and money on products related to remote work. We give our most honest assessment of WFH products to make your decisions easier and quicker, so you can concentrate on the things that matter most to you.
+        <p class="py-40 m-0">Our reviews save you time and money on products related to remote work. We give our most honest assessment of WFH products to make your decisions easier and quicker, so you can concentrate on the things that matter most to you.
         </p>
         <article-related [articlesData]="allReviews" [showHeader]="false" [centerLinks]="true">
         </article-related>
@@ -9,8 +15,14 @@
         <h3 class="app-subheader-font mb-40">Need more tips? Check out our blog!</h3>
         <jmg-btn (onClick)="navigateTo('blog')">See Blog</jmg-btn>
     </section>
-    <section class="content-padding pb-20">
+    <section class="content-padding mb-40">
         <h3 class="app-subheader-font mb-20">Upcoming WFH product reviews</h3>
         <article-disclosure></article-disclosure>
+        <p>Here are some great WFH essentials that we'll review soon.</p>
+        <div class="flex-md" style="flex-wrap:wrap;column-gap:10px;row-gap:10px;justify-content: space-evenly;">
+            <amz-product [amzProd]="chargingStation" size="md"></amz-product>
+            <amz-product [amzProd]="kvm" size="md"></amz-product>
+            <amz-product [amzProd]="cableTray" size="md"></amz-product>
+        </div>
     </section>
 </main>

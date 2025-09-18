@@ -1,4 +1,5 @@
-import { ObjectId } from "mongodb";
+import { ObjectId, Document } from "mongodb";
+import { Delta } from "quill";
 
 export interface Visits {
     _id?: ObjectId;
@@ -12,29 +13,28 @@ export interface BlogData {
     title: string;
     path: string;
     description: string;
-    imageName: string;
-    imageFormat: string;
+    imagePath: string;
     imageAlt: string;
     articleDate: string;
     modifiedDate: string;
     tags: Array<string>;
-    article: ArticleParts;
+    article: Article;
     published: boolean;
 }
 
-export interface ArticleParts {
-    parts: Array<Ele>;
+export interface Article {
+    contents: Delta | undefined;
     html?: string;
 }
 
-export type BlogElement = "section" | "contents" | "h2" | "p" | "link";
-export interface Ele {
-    tag?: BlogElement;
-    id?: string; //If the element is an affiliate link, use product id aka ASIN for the id
-    value?: string;
-    product?: AmzProduct;
-    _id?: string;
-}
+// export type BlogElement = "section" | "contents" | "h2" | "p" | "link";
+// export interface Ele {
+//     tag?: BlogElement;
+//     id?: string; //If the element is an affiliate link, use product id aka ASIN for the id
+//     value?: string;
+//     product?: AmzProduct;
+//     _id?: string;
+// }
 
 export interface AmzProduct {
     _id?: string;
@@ -60,4 +60,10 @@ export interface Log {
     date: Date;
     msg: string;
     asin?: string;
+}
+
+export interface SitemapDocument extends Document {
+  content: Buffer;
+  contentType: string;
+  lastUpdated: Date;
 }

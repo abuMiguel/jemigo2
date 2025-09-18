@@ -1,6 +1,13 @@
 import { AmzProduct, BlogData, Log } from './server.models';
 import { model, Schema } from 'mongoose';
 
+const sitemapSchema = new Schema({
+    content: { type: Buffer, required: true },
+    contentType: { type: String, required: true, default: 'application/gzip' },
+    lastUpdated: { type: Date, required: true, default: Date.now }
+});
+const Sitemap = model('Sitemap', sitemapSchema, "sitemap");
+
 const metricsSchema = new Schema({
     visits: Number
 });
@@ -44,26 +51,14 @@ const blogSchema = new Schema<BlogData>({
     title: String,
     path: String,
     description: String,
-    imageName: String,
-    imageFormat: String,
+    imagePath: String,
     imageAlt: String,
     articleDate: String,
     modifiedDate: String,
-    article: { parts: [{tag: String, id: String, value: String, 
-        product: { asin: {
-            type: String,
-            unique: true,
-        },
-        link: String,
-        largeImage: { height: Number, width: Number, url: String },
-        mediumImage: { height: Number, width: Number, url: String },
-        smallImage: { height: Number, width: Number, url: String },
-        title: String,
-        price: Number,
-        displayPrice: String,
-        isPrime: Boolean,
-        lastUpdated: Date,
-    }}], html: String },
+    article: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
     published: Boolean,
     tags: [String]
 });
@@ -73,7 +68,7 @@ const logsSchema = new Schema<Log>({
     date: {
         type: Date,
         default: Date.now,
-        index: { expires: '90d' }, 
+        index: { expires: '90d' },
     },
     msg: String,
     asin: String,
@@ -81,9 +76,9 @@ const logsSchema = new Schema<Log>({
 const Logs = model('Logs', logsSchema, "logs");
 
 
-export class GNookDb {
+export class JemigoDb {
 
-    constructor() {}
+    constructor() { }
 
     public async incrementVisits(): Promise<void> {
         try {
@@ -123,23 +118,23 @@ export class GNookDb {
 
     public async updateVisits(): Promise<void> {
         try {
-            if(!Visits) return;
+            if (!Visits) return;
             const today = new Date();
             const year = today.getFullYear();
             const month = today.getMonth() + 1;
             const day = today.getDate();
 
-            const filter = { year: year, month: month, day: day};
+            const filter = { year: year, month: month, day: day };
 
             const doc = await Visits.exists(filter);
-            if(!doc){
+            if (!doc) {
                 await Visits.create({ year: year, month: month, day: day, visits: 1 });
             }
-            else{
+            else {
                 const updateDoc = {
                     $inc: { visits: 1 }
                 };
-    
+
                 await Visits.findByIdAndUpdate(doc._id, updateDoc);
             }
         } catch (err) {
@@ -149,10 +144,23 @@ export class GNookDb {
 
     public async getBlogData(unpublishedOnly = false): Promise<BlogData[]> {
         try {
-            if(!Blog) {
+            if (!Blog) {
                 return [];
             }
-            const query = unpublishedOnly ? { published: false } : { };
+            const query = unpublishedOnly ? { published: false } : {};
+            const blogData = await Blog.find<BlogData>(query);
+            return blogData;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    public async getPublishedBlogData(): Promise<BlogData[]> {
+        try {
+            if (!Blog) {
+                return [];
+            }
+            const query = { published: true };
             const blogData = await Blog.find<BlogData>(query);
             return blogData;
         } catch (err) {
@@ -171,8 +179,8 @@ export class GNookDb {
         }
     }
 
-    public async saveBlogData(data: BlogData){
-        try{
+    public async saveBlogData(data: BlogData) {
+        try {
             const newBlog = await Blog.create(data);
             const result = await newBlog.save();
             return result?._id;
@@ -182,15 +190,14 @@ export class GNookDb {
         }
     }
 
-    public async updateBlogData(data: BlogData){
-        try{
+    public async updateBlogData(data: BlogData) {
+        try {
             const updateDoc = {
                 $set: {
                     title: data.title,
                     path: data.path,
                     description: data.description,
-                    imageName: data.imageName,
-                    imageFormat: data.imageFormat,
+                    imagePath: data.imagePath,
                     imageAlt: data.imageAlt,
                     articleDate: data.articleDate,
                     modifiedDate: data.modifiedDate,
@@ -207,8 +214,8 @@ export class GNookDb {
         }
     }
 
-    public async saveLog(data: Log){
-        try{
+    public async saveLog(data: Log) {
+        try {
             const newLog = await new Logs(data);
             const result = await newLog.save();
             return result?._id;
@@ -221,8 +228,8 @@ export class GNookDb {
     //AMAZON PRODUCTS
     public async getCachedAmazonProducts(ids?: string[], asinsOnly?: boolean): Promise<Array<AmzProduct>> {
         try {
-            const query = ids && ids?.length > 0 ? { asin: { $in: ids }} : {};
-            const options = asinsOnly ? { asin: 1, _id: 0} : {};
+            const query = ids && ids?.length > 0 ? { asin: { $in: ids } } : {};
+            const options = asinsOnly ? { asin: 1, _id: 0 } : {};
             const prods = await AmzProd.find<AmzProduct>(query, options);
             return prods ?? [];
         } catch (err) {
@@ -230,8 +237,8 @@ export class GNookDb {
         }
     }
 
-    public async saveAmazonProduct(data: AmzProduct){
-        try{
+    public async saveAmazonProduct(data: AmzProduct) {
+        try {
             const newProd = await AmzProd.create(data);
             const result = await newProd.save();
             return result?._id;
@@ -241,8 +248,8 @@ export class GNookDb {
         }
     }
 
-    public async dailyAmazonCacheUpdate(data: AmzProduct){
-        try{
+    public async dailyAmazonCacheUpdate(data: AmzProduct) {
+        try {
             const query = { asin: data.asin };
             const updateDoc = {
                 $set: {
@@ -261,6 +268,30 @@ export class GNookDb {
         } catch (ex) {
             console.dir(ex);
             return undefined;
+        }
+    }
+
+    public async updateSitemap(sitemapBuffer: Buffer): Promise<void> {
+        await Sitemap.findOneAndUpdate(
+            {}, // An empty filter will find the first document
+            {
+                content: sitemapBuffer,
+                lastUpdated: new Date()
+            },
+            {
+                new: true, // Return the updated document
+                upsert: true // Create the document if it doesn't exist
+            }
+        );
+    }
+
+    public async getSitemap(): Promise<{ content: Buffer } | null> {
+        try {
+            // Find the latest sitemap document
+            const sitemap = await Sitemap.findOne({}, { content: 1, _id: 0 });
+            return sitemap;
+        } catch (err) {
+            throw err;
         }
     }
 }

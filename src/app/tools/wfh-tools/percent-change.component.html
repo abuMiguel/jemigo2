@@ -1,0 +1,31 @@
+<main style="padding: 10px 20px 20px 20px; max-width:1400px;">
+    <tools-nav></tools-nav>
+    <section>
+        <h2 class="mt-0">{{data?.title}}</h2>
+        <p class="mt-0">Calculate Percent Change Between Two Numbers</p>
+        <div style="margin-bottom:35px;" class="mobile-col">
+            <div>
+                <label for="xNumber">Original Num</label>
+                <input id="xNumber" type="number" [formControl]="xNumber" min="-9999999999999" max="9999999999999"
+                    minlength="1" maxlength="13" [style.border-color]="xNumber.invalid ? 'red' : ''">
+            </div>
+
+            <div>
+                <label style="display:block;padding-right: 10px;width: 130px;" for="yNumber">New Num</label>
+                <input id="yNumber" type="number" [formControl]="yNumber" min="-9999999999999" max="9999999999999"
+                    minlength="1" maxlength="13" [style.border-color]="yNumber.invalid ? 'red' : ''">
+            </div>
+
+            <div>
+                <label style="display:block;padding-right: 10px;width: 130px;" for="increaseNumber">% Increase</label>
+                {{increaseNumber | number}}
+            </div>
+
+            <div class="calc-button-wrapper" style="display: inline-block;">
+                <button class="calc-button" type="button"
+                    (click)="calcPercentIncrease(yNumber.value ?? 0, xNumber.value ?? 0)">Calculate</button>
+            </div>
+        </div>
+        <hr style="width:95%;margin-left: 0;">
+    </section>
+</main>
