@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
@@ -9,9 +9,8 @@ import { AmzProduct } from '../../interfaces/blog-interface';
     templateUrl: './slider.component.html',
   standalone: true,
   imports: [
-        CommonModule,
-        FontAwesomeModule
-    ]
+    FontAwesomeModule
+]
 })
 export class SliderComponent {
   @Input() items: Array<AmzProduct> = [];

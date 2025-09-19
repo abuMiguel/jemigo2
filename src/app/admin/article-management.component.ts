@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, viewChild, ElementRef, AfterViewInit, inject } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, viewChild, ElementRef, AfterViewInit, inject, DOCUMENT } from "@angular/core";
 import { data } from "../app.data";
-import { CommonModule, DOCUMENT } from '@angular/common';
+
 import { BlogService } from "../blog.service";
 import { AdminBlogData, AmzProduct, BlogData } from "../shared/interfaces/blog-interface";
 import { FormsModule } from "@angular/forms";
@@ -10,9 +10,8 @@ import Quill, { Delta } from "quill";
     selector: "article-management",
     templateUrl: "./article-management.component.html",
     imports: [
-        CommonModule,
-        FormsModule,
-    ],
+    FormsModule
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`
     @import 'quill/dist/quill.snow.css';

@@ -1,26 +1,26 @@
 <div style="position: relative;">
-    <button class="slider-btn" style="position:absolute; left:-20px;top:0;bottom:0;margin-top:auto;margin-bottom:auto;" (click)="prev()">    
-        <fa-icon [icon]="faAngleLeft" size="lg"></fa-icon>
-    </button>
-    
-<div style="height:160px;overflow:hidden;display:flex;justify-content: flex-start;">
-    <ng-container *ngFor="let item of items">
-        <span style="align-self: center;">
-            <a [href]="item?.link" target="_blank">
-                <img 
-                [srcset]="item?.mediumImage?.url + ' ' + item?.mediumImage?.width + 'w,'" 
+  <button class="slider-btn" style="position:absolute; left:-20px;top:0;bottom:0;margin-top:auto;margin-bottom:auto;" (click)="prev()">
+    <fa-icon [icon]="faAngleLeft" size="lg"></fa-icon>
+  </button>
+
+  <div style="height:160px;overflow:hidden;display:flex;justify-content: flex-start;">
+    @for (item of items; track item) {
+      <span style="align-self: center;">
+        <a [href]="item?.link" target="_blank">
+          <img
+            [srcset]="item?.mediumImage?.url + ' ' + item?.mediumImage?.width + 'w,'"
                 [sizes]="'(max-width: 600px) ' + ((item?.mediumImage?.width ?? 500) - 50) + 'px, ' +
                   '((min-width: 600px) and (max-width: 817px)) ' + ((item?.mediumImage?.width ?? 600) - 50) + 'px, ' +
                   '(min-width: 817px) ' + ((item?.mediumImage?.width ?? 818)) + 'px'"
-                [src]="item?.mediumImage?.url"
-                [alt]="item?.title"
-                >
-              </a>
+            [src]="item?.mediumImage?.url"
+            [alt]="item?.title"
+            >
+          </a>
         </span>
-    </ng-container>
-</div>
+      }
+    </div>
 
-<button class="slider-btn" style="position:absolute; right:-20px;top:0;bottom:0;margin-top:auto;margin-bottom:auto;" (click)="next()">
-    <fa-icon [icon]="faAngleRight" size="lg"></fa-icon>
-</button>
-</div>
+    <button class="slider-btn" style="position:absolute; right:-20px;top:0;bottom:0;margin-top:auto;margin-bottom:auto;" (click)="next()">
+      <fa-icon [icon]="faAngleRight" size="lg"></fa-icon>
+    </button>
+  </div>

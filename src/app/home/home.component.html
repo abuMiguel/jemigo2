@@ -1,101 +1,103 @@
 <main>
-    <header>
-        <section class="app-header-section">
-            <!-- <img style="width: 100%; display:block;" src="/assets/images/woman-working-from-home.jpg" /> -->
-            <div class="app-header-content">
-                <h1 class="app-header-font mb-10 no-wrap">Jemigo</h1>
-                <h2 class="app-subheader-font my-0 pb-20 hide-small no-wrap">The WFH Hub</h2>
-                <h2 class="app-subheader-font hide-medium hide-large my-0 pb-20">The WFH Hub</h2>
-                <h2 class="app-subheader-font hide-medium hide-large">Work from Home</h2>
-                <h3 class="subheader-font-black mb-0">Learn About Work From Home Culture</h3>
-                <div class="app-calltoaction-btn">
-                    <jmg-btn (onClick)="navigateTo('blog')">Get Started</jmg-btn>
-                </div>
-            </div>
+  <header>
+    <section class="app-header-section">
+      <!-- <img style="width: 100%; display:block;" src="/assets/images/woman-working-from-home.jpg" /> -->
+      <div class="app-header-content">
+        <h1 class="app-header-font mb-10 no-wrap">Jemigo</h1>
+        <h2 class="app-subheader-font my-0 pb-20 hide-small no-wrap">The WFH Hub</h2>
+        <h2 class="app-subheader-font hide-medium hide-large my-0 pb-20">The WFH Hub</h2>
+        <h2 class="app-subheader-font hide-medium hide-large">Work from Home</h2>
+        <h3 class="subheader-font-black mb-0">Learn About Work From Home Culture</h3>
+        <div class="app-calltoaction-btn">
+          <jmg-btn (onClick)="navigateTo('blog')">Get Started</jmg-btn>
+        </div>
+      </div>
 
+    </section>
+  </header>
+  <section class="app-main-content">
+    <div class="app-main-content-inner-wrapper">
+      <section class="app-intro-mobile">
+        <ng-container *ngTemplateOutlet="appIntro"></ng-container>
+      </section>
+      <section class="app-main-col-left">
+        <section style="display:grid;grid-row-gap:70px;">
+          @for (art of featured; track art) {
+            <article-card [title]="art.title" [linkRoute]="art.linkRoute"
+              [date]="art.date" [imgRoute]="art.imgRoute" [snippet]="art.snippet" [alt]="art.alt">
+            </article-card>
+          }
         </section>
-    </header>
-    <section class="app-main-content">
-        <div class="app-main-content-inner-wrapper">
-            <section class="app-intro-mobile">
-                <ng-container *ngTemplateOutlet="appIntro"></ng-container>
-            </section>
-            <section class="app-main-col-left">
-                <section style="display:grid;grid-row-gap:70px;">
-                    <article-card *ngFor="let art of featured" [title]="art.title" [linkRoute]="art.linkRoute"
-                        [date]="art.date" [imgRoute]="art.imgRoute" [snippet]="art.snippet" [alt]="art.alt">
-                    </article-card>
-                </section>
-                <div style="padding-top:40px;">
-                    <jmg-btn (onClick)="navigateTo('blog')">See All Articles</jmg-btn>
-                </div>
-                <article-related [articlesData]="topArticles" [smallerVersion]="true">
-                    Top Articles
-                </article-related>
-            </section>
-            <section class="app-main-col-right-bottom">
-                <section class="app-main-col-right-top">
-                    <ng-container *ngTemplateOutlet="appIntro"></ng-container>
-                </section>
-                <section>
-                    <div class="mb-20 app-main-sidebar-wrapper">
-                        <img class="auto-size" decoding="async" width="450" height="360"
-                            src="https://res.cloudinary.com/jemigo/image/upload/v1755718800/plant-more-trees.webp" alt="Hand holding newly planted tree"
-                            loading="lazy">
-                    </div>
-                    <h3 class="app-header-font-small mb-20">Sustainability</h3>
-                    <p class="app-main-desc mb-40">Working from home can make our individual lives more sustainable, but
-                        planting more trees can improve the health of our entire planet.</p>
-                    <div class="mb-40">
-                        <button type="button" class="jmg-btn-green" (click)="plantTrees()">
-                            <fa-icon style="margin-right:9px;" [icon]="faTree"></fa-icon>
-                            Plant trees with us
-                        </button>
-                    </div>
-                    <h3 class="app-subheader-font mb-20">How does it work?</h3>
-                    <div class="mb-40">
-                        <iframe class="auto-size" style="min-height:190px;"
-                            src="https://www.youtube-nocookie.com/embed/RYZrp6Mqw2E" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    </div>
-                    <h3 class="app-subheader-font mb-0">Tree Facts</h3>
-                    <p class="app-main-desc py-20 my-0">{{appService.randomFact}}</p>
-                    <div class="pb-20">
-                        <button type="button" class="custom-link-btn" (click)="appService.nextTreeFact()">
-                            Next Fact <fa-icon [icon]="faAngleRight"></fa-icon>
-                        </button>
-                    </div>
-                </section>
-            </section>
-
+        <div style="padding-top:40px;">
+          <jmg-btn (onClick)="navigateTo('blog')">See All Articles</jmg-btn>
         </div>
-    </section>
-</main>
+        <article-related [articlesData]="topArticles" [smallerVersion]="true">
+          Top Articles
+        </article-related>
+      </section>
+      <section class="app-main-col-right-bottom">
+        <section class="app-main-col-right-top">
+          <ng-container *ngTemplateOutlet="appIntro"></ng-container>
+        </section>
+        <section>
+          <div class="mb-20 app-main-sidebar-wrapper">
+            <img class="auto-size" decoding="async" width="450" height="360"
+              src="https://res.cloudinary.com/jemigo/image/upload/v1755718800/plant-more-trees.webp" alt="Hand holding newly planted tree"
+              loading="lazy">
+            </div>
+            <h3 class="app-header-font-small mb-20">Sustainability</h3>
+            <p class="app-main-desc mb-40">Working from home can make our individual lives more sustainable, but
+            planting more trees can improve the health of our entire planet.</p>
+            <div class="mb-40">
+              <button type="button" class="jmg-btn-green" (click)="plantTrees()">
+                <fa-icon style="margin-right:9px;" [icon]="faTree"></fa-icon>
+                Plant trees with us
+              </button>
+            </div>
+            <h3 class="app-subheader-font mb-20">How does it work?</h3>
+            <div class="mb-40">
+              <iframe class="auto-size" style="min-height:190px;"
+                src="https://www.youtube-nocookie.com/embed/RYZrp6Mqw2E" title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+            </div>
+            <h3 class="app-subheader-font mb-0">Tree Facts</h3>
+            <p class="app-main-desc py-20 my-0">{{appService.randomFact}}</p>
+            <div class="pb-20">
+              <button type="button" class="custom-link-btn" (click)="appService.nextTreeFact()">
+                Next Fact <fa-icon [icon]="faAngleRight"></fa-icon>
+              </button>
+            </div>
+          </section>
+        </section>
 
-<ng-template #appIntro>
+      </div>
+    </section>
+  </main>
+
+  <ng-template #appIntro>
     <section>
-        <h3 class="app-subheader-font mt-5 mb-20">Our Motto</h3>
-        <div class="mt-0 mb-40 motto-text"><span class="underline">This</span> is how we work now.</div>
+      <h3 class="app-subheader-font mt-5 mb-20">Our Motto</h3>
+      <div class="mt-0 mb-40 motto-text"><span class="underline">This</span> is how we work now.</div>
 
-        <h3 class="app-subheader-font mt-5 mb-20">WFH Resources</h3>
-        <div class="resources mb-40">
-            <a href="https://www.bls.gov/cps/telework.htm" target="_blank">WFH Statistics</a>
-            <p class="mt-0">Source: U.S. Bureau of Labor Statistics</p>
+      <h3 class="app-subheader-font mt-5 mb-20">WFH Resources</h3>
+      <div class="resources mb-40">
+        <a href="https://www.bls.gov/cps/telework.htm" target="_blank">WFH Statistics</a>
+        <p class="mt-0">Source: U.S. Bureau of Labor Statistics</p>
 
-            <a href="/wfh-tools/wfh-time-savings-calculator">WFH Time Savings Calculator</a>
-            <p class="mt-0">Source: Jemigo.com</p>
-        </div>
+        <a href="/wfh-tools/wfh-time-savings-calculator">WFH Time Savings Calculator</a>
+        <p class="mt-0">Source: Jemigo.com</p>
+      </div>
 
-        <h3 class="app-subheader-font mt-5 mb-20">Our articles</h3>
-        <div class="mb-40 center-text-mobile">
-            <jmg-btn [color]="'blue'" (onClick)="navigateTo('blog')">Read WFH Articles</jmg-btn>
-        </div>
+      <h3 class="app-subheader-font mt-5 mb-20">Our articles</h3>
+      <div class="mb-40 center-text-mobile">
+        <jmg-btn [color]="'blue'" (onClick)="navigateTo('blog')">Read WFH Articles</jmg-btn>
+      </div>
 
-        <h3 class="app-subheader-font mt-5 mb-20">Our reviews</h3>
-        <div class="mb-20 center-text-mobile">
-            <jmg-btn [color]="'blue'" (onClick)="navigateTo('reviews')">See Product Reviews</jmg-btn>
-        </div>
+      <h3 class="app-subheader-font mt-5 mb-20">Our reviews</h3>
+      <div class="mb-20 center-text-mobile">
+        <jmg-btn [color]="'blue'" (onClick)="navigateTo('reviews')">See Product Reviews</jmg-btn>
+      </div>
     </section>
-</ng-template>
+  </ng-template>

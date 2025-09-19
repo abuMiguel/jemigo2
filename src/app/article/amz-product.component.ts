@@ -11,53 +11,70 @@ type AmzProdSize = "sm" | "md" | "lg";
     ],
     styleUrl: './../../styles/amz.scss',
     template: `
-  <ng-container *ngIf="amzProd && isBrowser">
-    <ng-container *ngIf="singleProduct; else linkAndButton">
+  @if (amzProd && isBrowser) {
+    @if (singleProduct) {
       <section class="center images-section">
         <ng-container *ngTemplateOutlet="linkAndButton"></ng-container>
       </section>
-    </ng-container>
-  
-    <ng-template #linkAndButton>
+    } @else {
       <a [href]="amzProd()?.link" target="_blank">
-      <!-- <img 
-      [srcset]="image?.url + ' ' + image?.width + 'w,'" 
+        <!-- <img
+        [srcset]="image?.url + ' ' + image?.width + 'w,'"
       [sizes]="'(max-width: 600px) ' + ((image?.width ?? 600) - offsetSm) + 'px, ' +
         '((min-width: 600px) and (max-width: 817px)) ' + ((image?.width ?? 601) - offsetMd) + 'px, ' +
         '(min-width: 817px) ' + ((image?.width ?? 817) - offsetLg) + 'px'"
-      [src]="image?.url"
-      [alt]="amzProd()?.title"
-      > -->
-      <img [src]="image?.url" [alt]="amzProd()?.title"
-      >
-      </a>
-      <button *ngIf="showButton" class="prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
-    </ng-template>
-  </ng-container>
-
-  <!-- <div class="paapi5-pa-ad-unit">
-    <div class="paapi5-pa-product-container">
+        [src]="image?.url"
+        [alt]="amzProd()?.title"
+        > -->
+        <img [src]="image?.url" [alt]="amzProd()?.title"
+          >
+        </a>
+        @if (showButton) {
+          <button class="prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
+        }
+      }
+      <ng-template #linkAndButton>
+        <a [href]="amzProd()?.link" target="_blank">
+          <!-- <img
+          [srcset]="image?.url + ' ' + image?.width + 'w,'"
+      [sizes]="'(max-width: 600px) ' + ((image?.width ?? 600) - offsetSm) + 'px, ' +
+        '((min-width: 600px) and (max-width: 817px)) ' + ((image?.width ?? 601) - offsetMd) + 'px, ' +
+        '(min-width: 817px) ' + ((image?.width ?? 817) - offsetLg) + 'px'"
+          [src]="image?.url"
+          [alt]="amzProd()?.title"
+          > -->
+          <img [src]="image?.url" [alt]="amzProd()?.title"
+            >
+          </a>
+          @if (showButton) {
+            <button class="prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
+          }
+        </ng-template>
+      }
+  
+      <!-- <div class="paapi5-pa-ad-unit">
+      <div class="paapi5-pa-product-container">
         <div class="paapi5-pa-product-image">
-            <div class="paapi5-pa-product-image-wrapper">
-                <a class="paapi5-pa-product-image-link" 
-                [href]="amzProd()?.link" [title]="amzProd()?.title" target="_blank">
-                <img class="paapi5-pa-product-image-source" [src]="image?.url" [alt]="amzProd()?.title">
-                </a>
-                
-            </div>
+          <div class="paapi5-pa-product-image-wrapper">
+            <a class="paapi5-pa-product-image-link"
+              [href]="amzProd()?.link" [title]="amzProd()?.title" target="_blank">
+              <img class="paapi5-pa-product-image-source" [src]="image?.url" [alt]="amzProd()?.title">
+            </a>
+  
+          </div>
         </div>
         <div class="paapi5-pa-product-details">
-            <div class="paapi5-pa-product-title">
-                <a class="paap5-pa-product-title-link" 
-                [href]="amzProd()?.link" [title]="amzProd()?.title" target="_blank">{{amzProd()?.title}}</a>
-            </div>
-            <div *ngIf="amzProd()?.price" class="paapi5-pa-product-list-price">
-                <span class="paapi5-pa-product-list-price-value"></span>
-            </div>
-            <div *ngIf="amzProd()?.isPrime" class="paapi5-pa-product-prime-icon"><span class="icon-prime-all"></span></div>
+          <div class="paapi5-pa-product-title">
+            <a class="paap5-pa-product-title-link"
+            [href]="amzProd()?.link" [title]="amzProd()?.title" target="_blank">{{amzProd()?.title}}</a>
+          </div>
+          <div *ngIf="amzProd()?.price" class="paapi5-pa-product-list-price">
+            <span class="paapi5-pa-product-list-price-value"></span>
+          </div>
+          <div *ngIf="amzProd()?.isPrime" class="paapi5-pa-product-prime-icon"><span class="icon-prime-all"></span></div>
         </div>
-    </div>
-  </div> -->
+      </div>
+    </div> -->
   `
 })
 export class AmzProductComponent {

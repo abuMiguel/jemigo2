@@ -1,11 +1,11 @@
-import { Injectable, Inject, PLATFORM_ID, OnInit, signal } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, OnInit, signal, DOCUMENT } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject, of } from 'rxjs';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Jmg } from './shared/jmg';
 import { TREE_FACTS } from './shared/constants';
 import { AppData } from './app.data';

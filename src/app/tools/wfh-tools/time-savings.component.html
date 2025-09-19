@@ -1,78 +1,81 @@
 <main style="padding: 10px 20px 20px 20px; max-width:1400px;">
-    <tools-nav></tools-nav>
-    <section>
-        <h2 class="mt-0">{{data.title}}</h2>
-        <p class="mt-0">{{data.description}}</p>
-        <div style="margin-bottom:35px;" class="mobile-col">
-            <div style="margin-bottom:5px;">
-                <div>
-                    <label for="dailyCommuteMinutes"><strong>Total Daily Commute (2 ways)</strong></label>
-                </div>
-                <div>
-                    <input style="width: 130px;" id="dailyCommuteMinutes" type="number" min="1" max="1440" [formControl]="dailyCommuteMinutes"> Minutes / Day
-                </div>
-            </div>
-            <div style="margin-bottom:5px;">
-                <div>
-                    <label for="commuteDays"><strong>Commuting Days Per Week</strong></label>
-                </div>
-                <div>
-                    <input style="width: 130px;" id="commuteDays" type="number" min="1" max="7" [formControl]="commuteDays"> Days / Week
-                </div>
-            </div>
-            <div style="margin-bottom:5px;">
-                <div>
-                    <label for="commuteDays"><strong>Minutes Saved Daily Getting Ready For Work</strong></label>
-                    <div>(Office Preparation Time - WFH Preparation Time)</div>
-                </div>
-                <div>
-                    <input style="width: 130px;" id="commuteDays" type="number" max="1440" [formControl]="timeGettingReady"> Minutes / Day
-                </div>
-            </div>
-
-            <div style="display: inline-block;margin-top:15px;">
-                <button style="width:130px;height:35px;font-size: 1rem;" type="button" (click)="calcSavings()">Calculate</button>
-            </div>
-
-            <div *ngIf="calculateClicked" style="margin-top:15px;">
-                <h3>Time Savings</h3>
-                <table id="timeSavings" class="article-table article-table-more-columns">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Week</th>
-                            <th>Month</th>
-                            <th>Year</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>mins</td>
-                            <td>{{savingsInMinutesPerWeek | number:'1.0-2'}}</td>
-                            <td>{{savingsInMinutesPerMonth | number:'1.0-2'}}</td>
-                            <td>{{savingsInMinutesPerYear| number:'1.0-2'}}</td>
-                        </tr>
-                        <tr>
-                            <td>hrs</td>
-                            <td>{{savingsInHoursPerWeek | number:'1.0-2'}}</td>
-                            <td>{{savingsInHoursPerMonth | number:'1.0-2'}}</td>
-                            <td>{{savingsInHoursPerYear| number:'1.0-2'}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p *ngIf="calculateClicked">
-                If you commute for {{dailyCommuteMinutes.value ?? 0}} minutes, {{commuteDays.value ?? 0}} days a week, and you spend {{timeGettingReady.value ?? 0}} fewer minutes each work day preparing for work, then you will save:
-                <br><br>
-                <b>{{savingsInMinutesPerWeek | number:'1.0-2'}}</b> minutes per week,<br>
-                <b>{{savingsInMinutesPerMonth | number:'1.0-2'}}</b> minutes per month,<br>
-                <b>{{savingsInMinutesPerYear| number:'1.0-2'}}</b> minutes per year, or<br>
-                <b>{{savingsInHoursPerWeek | number:'1.0-2'}}</b> hours per week,<br>
-                <b>{{savingsInHoursPerMonth | number:'1.0-2'}}</b> hours per month,<br>
-                <b>{{savingsInHoursPerYear| number:'1.0-2'}}</b> hours per year.
-
-            </p>
+  <tools-nav></tools-nav>
+  <section>
+    <h2 class="mt-0">{{data.title}}</h2>
+    <p class="mt-0">{{data.description}}</p>
+    <div style="margin-bottom:35px;" class="mobile-col">
+      <div style="margin-bottom:5px;">
+        <div>
+          <label for="dailyCommuteMinutes"><strong>Total Daily Commute (2 ways)</strong></label>
         </div>
-        <hr style="width:95%;margin-left: 0;">
-    </section>
+        <div>
+          <input style="width: 130px;" id="dailyCommuteMinutes" type="number" min="1" max="1440" [formControl]="dailyCommuteMinutes"> Minutes / Day
+        </div>
+      </div>
+      <div style="margin-bottom:5px;">
+        <div>
+          <label for="commuteDays"><strong>Commuting Days Per Week</strong></label>
+        </div>
+        <div>
+          <input style="width: 130px;" id="commuteDays" type="number" min="1" max="7" [formControl]="commuteDays"> Days / Week
+        </div>
+      </div>
+      <div style="margin-bottom:5px;">
+        <div>
+          <label for="commuteDays"><strong>Minutes Saved Daily Getting Ready For Work</strong></label>
+          <div>(Office Preparation Time - WFH Preparation Time)</div>
+        </div>
+        <div>
+          <input style="width: 130px;" id="commuteDays" type="number" max="1440" [formControl]="timeGettingReady"> Minutes / Day
+        </div>
+      </div>
+
+      <div style="display: inline-block;margin-top:15px;">
+        <button style="width:130px;height:35px;font-size: 1rem;" type="button" (click)="calcSavings()">Calculate</button>
+      </div>
+
+      @if (calculateClicked) {
+        <div style="margin-top:15px;">
+          <h3>Time Savings</h3>
+          <table id="timeSavings" class="article-table article-table-more-columns">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Week</th>
+                <th>Month</th>
+                <th>Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>mins</td>
+                <td>{{savingsInMinutesPerWeek | number:'1.0-2'}}</td>
+                <td>{{savingsInMinutesPerMonth | number:'1.0-2'}}</td>
+                <td>{{savingsInMinutesPerYear| number:'1.0-2'}}</td>
+              </tr>
+              <tr>
+                <td>hrs</td>
+                <td>{{savingsInHoursPerWeek | number:'1.0-2'}}</td>
+                <td>{{savingsInHoursPerMonth | number:'1.0-2'}}</td>
+                <td>{{savingsInHoursPerYear| number:'1.0-2'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      }
+      @if (calculateClicked) {
+        <p>
+          If you commute for {{dailyCommuteMinutes.value ?? 0}} minutes, {{commuteDays.value ?? 0}} days a week, and you spend {{timeGettingReady.value ?? 0}} fewer minutes each work day preparing for work, then you will save:
+          <br><br>
+          <b>{{savingsInMinutesPerWeek | number:'1.0-2'}}</b> minutes per week,<br>
+          <b>{{savingsInMinutesPerMonth | number:'1.0-2'}}</b> minutes per month,<br>
+          <b>{{savingsInMinutesPerYear| number:'1.0-2'}}</b> minutes per year, or<br>
+          <b>{{savingsInHoursPerWeek | number:'1.0-2'}}</b> hours per week,<br>
+          <b>{{savingsInHoursPerMonth | number:'1.0-2'}}</b> hours per month,<br>
+          <b>{{savingsInHoursPerYear| number:'1.0-2'}}</b> hours per year.
+        </p>
+      }
+    </div>
+    <hr style="width:95%;margin-left: 0;">
+  </section>
 </main>

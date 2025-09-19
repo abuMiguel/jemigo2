@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 import { ActivatedRoute, Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { faUser, faHouseChimney, faStar, faBlog, faCode, faTools, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CommonModule } from '@angular/common';
+
 import { FooterComponent } from './footer/footer.component';
 import { environment } from '../environments/environment';
 
@@ -14,11 +14,10 @@ import { environment } from '../environments/environment';
   imports: [
     RouterModule,
     FontAwesomeModule,
-    CommonModule,
     FooterComponent,
     RouterOutlet,
-    RouterLink,
-  ]
+    RouterLink
+]
 })
 export class AppComponent implements OnInit {
   faUser = faUser; faStar = faStar;

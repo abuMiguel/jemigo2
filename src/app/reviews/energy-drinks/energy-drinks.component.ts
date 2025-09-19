@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { data } from '../../app.data';
 import { AppService } from '../../../app/app.service';
 import { AmzProduct } from '../../../../server.models';
-import { CommonModule } from '@angular/common';
+
 import { ArticleHeaderComponent } from '../../article/article-header.component';
 import { ArticleDisclosureComponent } from '../../article/article-disclosure.component';
 import { AmzProductComponent } from '../../article/amz-product.component';
@@ -11,11 +11,10 @@ import { AmzProductComponent } from '../../article/amz-product.component';
     templateUrl: './energy-drinks.component.html',
   standalone: true,
   imports: [
-        CommonModule,
-        ArticleHeaderComponent,
-        ArticleDisclosureComponent,
-        AmzProductComponent
-    ]
+    ArticleHeaderComponent,
+    ArticleDisclosureComponent,
+    AmzProductComponent
+]
 })
 export class EnergyDrinksComponent implements OnInit {
   data = data.reviewEnergyDrinksData.data;

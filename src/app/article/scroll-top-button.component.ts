@@ -1,5 +1,5 @@
-import { Component, Inject, OnDestroy, afterNextRender } from '@angular/core';
-import { CommonModule, DOCUMENT, ViewportScroller } from '@angular/common';
+import { Component, Inject, OnDestroy, afterNextRender, DOCUMENT } from '@angular/core';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { fromEvent, Subject } from 'rxjs';
 import { mergeWith, takeUntil } from 'rxjs/operators';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';

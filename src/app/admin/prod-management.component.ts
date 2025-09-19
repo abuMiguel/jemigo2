@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, signal, computed } from "@angular/core";
+import { Component, OnInit, Inject, signal, computed, DOCUMENT } from "@angular/core";
 import { data } from "../app.data";
-import { CommonModule, DOCUMENT } from '@angular/common';
+
 import { AmzProduct } from "../shared/interfaces/blog-interface";
 import { AppService } from "../app.service";
 import { FormsModule } from "@angular/forms";
@@ -9,9 +9,8 @@ import { FormsModule } from "@angular/forms";
     selector: "product-management",
     templateUrl: "./prod-management.component.html",
     imports: [
-        CommonModule,
-        FormsModule,
-    ]
+    FormsModule
+]
 })
 export class ProductManagementComponent implements OnInit {
     title = data.aboutData.title;

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { data } from '../app.data';
 import { AmzProduct } from '../shared/interfaces/blog-interface';
 import { AppService } from '../app.service';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ArticleRelatedComponent } from '../article/article-related.component';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { ArticleDisclosureComponent } from '../article/article-disclosure.component';
@@ -13,12 +13,11 @@ import { AmzProductComponent } from '../article/amz-product.component';
     templateUrl: './reviews.component.html',
   standalone: true,
   imports: [
-        CommonModule,
-        ArticleRelatedComponent,
-        ButtonComponent,
-        ArticleDisclosureComponent,
-        AmzProductComponent
-    ]
+    ArticleRelatedComponent,
+    ButtonComponent,
+    ArticleDisclosureComponent,
+    AmzProductComponent
+]
 })
 export class ReviewsComponent {
   allReviews = [

@@ -1,17 +1,21 @@
-<h3 *ngIf="showHeader" class="related-article-header">
+@if (showHeader) {
+  <h3 class="related-article-header">
     <ng-content></ng-content>
-</h3>
+  </h3>
+}
 <article [ngClass]="smallerVersion ? 'related-article-sm' : 'related-article'">
-    <div *ngFor="let data of articlesData" class="mb-10" [ngClass]="smallerVersion ? 'related-article-inner-wrapper-sm' : 'related-article-inner-wrapper'">
-        <a [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]" class="w-100">
-            <div style="overflow: hidden;">
-                <img class="related-article-img" decoding="async" loading="lazy" width="300" height="225" [src]="data?.data?.image?.src" [alt]="data?.data?.image?.alt">
-            </div>
-        </a>
-        <div [ngClass]="{'center' : centerLinks}" class="m-0" style="width: 100%;flex-grow: 1;">
-            <h3 class="my-0" style="font-size: 18px;">
-                <a class="link-hover" [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]">{{data.title}}</a>
-            </h3>
+  @for (data of articlesData; track data) {
+    <div class="mb-10" [ngClass]="smallerVersion ? 'related-article-inner-wrapper-sm' : 'related-article-inner-wrapper'">
+      <a [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]" class="w-100">
+        <div style="overflow: hidden;">
+          <img class="related-article-img" decoding="async" loading="lazy" width="300" height="225" [src]="data?.data?.image?.src" [alt]="data?.data?.image?.alt">
         </div>
+      </a>
+      <div [ngClass]="{'center' : centerLinks}" class="m-0" style="width: 100%;flex-grow: 1;">
+        <h3 class="my-0" style="font-size: 18px;">
+          <a class="link-hover" [routerLink]="data?.data?.parent ? ['/' + data?.data?.parent, data.path] : ['/', data?.path]">{{data.title}}</a>
+        </h3>
+      </div>
     </div>
+  }
 </article>

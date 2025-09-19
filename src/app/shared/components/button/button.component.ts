@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
@@ -8,9 +8,8 @@ import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
     templateUrl: './button.component.html',
   standalone: true,
   imports: [
-        FontAwesomeModule,
-        CommonModule,
-    ]
+    FontAwesomeModule
+]
 })
 export class ButtonComponent {
   @Output() onClick = new EventEmitter<any>();

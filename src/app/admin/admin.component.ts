@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject, signal, inject } from "@angular/core";
+import { Component, OnInit, Inject, signal, inject, DOCUMENT } from "@angular/core";
 import { data } from "../app.data";
-import { DOCUMENT } from '@angular/common';
+
 import { HttpClient } from "@angular/common/http";
 import { catchError } from "rxjs";
 import { Router } from "@angular/router";

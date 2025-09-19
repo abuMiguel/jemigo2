@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MainNavService } from '../main-nav/main-nav.service';
-import { CommonModule } from '@angular/common';
+
 import { ShareButtons } from 'ngx-sharebuttons/buttons';
 
 @Component({
     selector: 'article-share',
        standalone: true,
        imports: [
-        CommonModule,
-        ShareButtons,
-    ],
+    ShareButtons
+],
     template: `
   <share-buttons theme="modern-dark"
     [include]="['copy', 'linkedin', 'pinterest', 'facebook', 'reddit']"
