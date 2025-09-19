@@ -2,7 +2,11 @@
     <h1 class="center" style="margin-bottom: 15px;">{{data?.title}}</h1>
     <div class="center">
         <div class="article-header-image">
-            <img [src]="data.image.src" [alt]="data.image.alt">
+            @if (imageSrc) {
+                <img [src]="imageSrc" [srcset]="imageSrcset" [sizes]="imageSizes" [alt]="data.image.alt" loading="lazy">
+            } @else if (data?.image?.src) {
+                <img [src]="data.image.src" [alt]="data.image.alt" loading="lazy">
+            }
         </div>
 
         <p class="updated-date">Last Updated: {{ data.modifiedDate | date }}</p>

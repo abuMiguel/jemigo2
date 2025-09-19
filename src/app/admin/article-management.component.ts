@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, viewChild, ElementRef, AfterViewInit, inject, DOCUMENT } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, viewChild, ElementRef, AfterViewInit, inject, DOCUMENT, signal, Signal } from "@angular/core";
 import { data } from "../app.data";
 
 import { BlogService } from "../blog.service";
@@ -7,12 +7,12 @@ import { FormsModule } from "@angular/forms";
 import Quill, { Delta } from "quill";
 
 @Component({
-    selector: "article-management",
-    templateUrl: "./article-management.component.html",
-    imports: [
+  selector: "article-management",
+  templateUrl: "./article-management.component.html",
+  imports: [
     FormsModule
-],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -23,7 +23,7 @@ export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDest
   private quill: Quill | undefined;
   currentArticleContents: Delta | undefined;
 
-    async ngAfterViewInit() {
+  async ngAfterViewInit() {
     try {
       // Dynamically import the Quill library from the installed npm package.
       // This tells the Angular builder to put Quill in a separate, lazy-loadable file.
@@ -40,12 +40,53 @@ export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDest
           toolbar: [
             [{ 'header': [1, 2, 3, false] }],
             ['bold', 'italic', 'underline'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link', 'image']
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            ['link']
           ]
         },
         placeholder: 'Compose something wonderful...',
       });
+
+      // Add a simple custom toolbar button for inserting an Amazon product placeholder.
+      try {
+        const toolbar: any = this.quill.getModule('toolbar');
+        if (toolbar && toolbar.container) {
+          // create a new formats group and append to the end so the button appears at the end
+          const group = this.document.createElement('span');
+          group.className = 'ql-formats';
+
+          const amzButton = this.document.createElement('button');
+          amzButton.type = 'button';
+          amzButton.className = 'ql-amz';
+          amzButton.title = 'Insert Amazon affiliate link';
+          amzButton.setAttribute('aria-label', 'Insert product link');
+          // Simple product/tag SVG icon — small and unobtrusive
+          amzButton.innerHTML = `
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21 11.5v6a2 2 0 0 1-2 2h-6L3 11.5V5a2 2 0 0 1 2-2h6L21 11.5z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 7h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          `;
+
+          amzButton.addEventListener('click', () => {
+            const asin = window.prompt('Enter ASIN to insert');
+            if (asin && this.quill) {
+              const placeholder = `[[AMZ:${asin}]]`;
+              const range = this.quill.getSelection(true) || { index: 0, length: 0 };
+              this.quill.insertText(range.index, placeholder, 'user');
+              // move cursor after the inserted placeholder
+              this.quill.setSelection(range.index + placeholder.length, 0, 'user');
+            }
+          });
+
+          group.appendChild(amzButton);
+          // append the new group to the end of the toolbar container
+          toolbar.container.appendChild(group);
+        }
+      } catch (err) {
+        // if running in non-browser or toolbar unavailable, ignore
+        console.warn('Could not add product toolbar button', err);
+      }
     } catch (error) {
       console.error("Error loading Quill from node_modules:", error);
     }
@@ -79,7 +120,13 @@ export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDest
   selectedRow = 0;
 
   ar: BlogData = new AdminBlogData();
-  blogArticles: Array<BlogData> = [];
+  blogArticlesSignal = signal<Array<BlogData>>([]);
+
+  // Expose a plain array getter named `blogArticles` so legacy template preprocessor
+  // that uses `@for (article of blogArticles; ...)` can read the array value.
+  get blogArticles(): Array<BlogData> {
+    return this.blogArticlesSignal();
+  }
 
   tags = "";
   savedProducts: Array<AmzProduct> = [];
@@ -132,7 +179,7 @@ export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDest
   selectArticle(id?: string | undefined) {
     // this.selectedRow = 0;
     if (id) {
-      this.ar = this.blogArticles.find(b => b._id === id);
+      this.ar = this.blogArticles.find(b => b._id === id) as BlogData;
       this.tags = this.ar.tags.join(",");
       this.currentArticleContents = this.ar.article.contents;
       this.quill.setContents(this.currentArticleContents);
@@ -153,7 +200,7 @@ export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDest
   getArticles() {
     this.blogService.getBlogData().subscribe({
       next: blogs => {
-        this.blogArticles = blogs;
+        this.blogArticlesSignal.set(blogs);
       },
       error: err => console.log(err),
     });

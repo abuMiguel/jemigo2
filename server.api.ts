@@ -114,19 +114,35 @@ export class Api {
       try {
         const id = req.params["id"];
         const blogData: BlogData = await db.getBlogDataByPath(id);
-        // if (blogData?.article?.parts && blogData.article.parts.length > 0) {
-        //   const ids = blogData?.article?.parts.filter(p => p.tag === "link").map(l => l?.id ?? "");
-        //   let prods: Array<AmzProduct> = [];
-        //   if (ids && ids.length > 0) {
-        //     prods = await db.getCachedAmazonProducts(ids);
-        //   }
-        //   for (let i = 0; i < blogData.article.parts.length; i++) {
-        //     if (blogData.article.parts[i]?.tag === "link") {
-        //       const prod = prods.find(p => p.asin === blogData.article.parts[i]?.id);
-        //       blogData.article.parts[i].product = prod;
-        //     }
-        //   }
-        // }
+        // Replace any Quill-inserted placeholders like [[AMZ:ASIN]] with
+        // an `amz-product` component tag that carries the product data.
+        // This allows the frontend/SSR to render the component in place.
+        try {
+          const html = blogData?.article?.html ?? '';
+          if (html && /\[\[AMZ:([^\]]+)\]\]/i.test(html)) {
+            // collect unique ASINs
+            const matches = Array.from(html.matchAll(/\[\[AMZ:([^\]]+)\]\]/gi));
+            const asins = [...new Set(matches.map(m => m[1]))];
+            let prods: Array<AmzProduct> = [];
+            if (asins.length > 0) {
+              prods = await db.getCachedAmazonProducts(asins);
+            }
+
+            // Replace placeholders with component tags carrying serialized product data
+            const replaced = html.replace(/\[\[AMZ:([^\]]+)\]\]/gi, (m, asin) => {
+              const prod = prods.find(p => p.asin === asin);
+              if (!prod) return '';
+              // server-side render the product widget HTML
+              return Util.getAmzProductLink(prod);
+            });
+
+            // assign back
+            if (!blogData.article) blogData.article = { contents: undefined, html: replaced } as any;
+            else blogData.article.html = replaced;
+          }
+        } catch (e) {
+          console.error('Error replacing AMZ placeholders:', e);
+        }
         return res.json(blogData);
       } catch (e) {
         return res.status(500);

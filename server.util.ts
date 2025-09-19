@@ -31,25 +31,58 @@ export class Util {
   //   return article;
   // }
 
-  static getAmzProductLink(prod: AmzProduct | undefined) {
+  static getAmzProductLink(prod: AmzProduct | undefined): string {
     if (!prod) return "";
+
+    // Simple HTML escaper for attribute values and text nodes
+    const esc = (s?: string) => {
+      if (!s) return "";
+      return s
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    };
 
     const offsetSm = 225;
     const offsetMd = 150;
     const offsetLg = 100;
     const image = prod.largeImage;
 
+    const safeLink = esc(prod.link);
+    const safeTitle = esc(prod.title);
+    const imgUrl = image?.url ? esc(image.url) : "";
+    const imgWidth = typeof image?.width === 'number' ? image.width : undefined;
+
+    // Build srcset only when we have a valid image url and width
+    const srcset = imgUrl && imgWidth ? `${imgUrl} ${imgWidth}w` : "";
+
+    // Calculate fallback sizes safely
+    const sizeSm = (imgWidth ?? 600) - offsetSm;
+    const sizeMd = (imgWidth ?? 700) - offsetMd;
+    const sizeLg = (imgWidth ?? 818) - offsetLg;
+
+    // Use an anchor styled as a button instead of nesting <a> inside <button>
+    const viewButton = `<a class="prod-btn" href="${safeLink}" target="_blank" rel="noopener noreferrer">View on Amazon</a>`;
+
+    // If no image is available, return a simple linked title + button
+    if (!imgUrl) {
+      return `<section class="center images-section">
+        <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a>
+        ${viewButton}
+      </section>`;
+    }
+
     return `<section class="center images-section">
-          <a href="${prod?.link}" target="_blank">
-          <img srcset="${image?.url} ${image?.width}w" 
-            sizes="(max-width: 600px) ${(image?.width ?? 600) - offsetSm}px, 
-            ((min-width: 600px) and (max-width: 817px)) ${(image?.width ?? 700) - offsetMd}px, 
-            (min-width: 817px) ${(image?.width ?? 818) - offsetLg}px"
-            src="${image?.url}"
-            alt="${prod?.title}"
-          >
+          <a href="${safeLink}" target="_blank" rel="noopener noreferrer">
+            <img srcset="${srcset}"
+              sizes="(max-width: 600px) ${sizeSm}px, ((min-width: 600px) and (max-width: 817px)) ${sizeMd}px, (min-width: 817px) ${sizeLg}px"
+              src="${imgUrl}"
+              alt="${safeTitle}"
+            >
           </a>
-          <button class="prod-btn"><a href="${prod?.link}" target="_blank">View on Amazon</a></button>
+          ${viewButton}
           </section>`;
   }
 

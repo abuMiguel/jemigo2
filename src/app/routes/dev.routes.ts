@@ -1,21 +1,7 @@
 import { Routes } from "@angular/router";
-import { data } from "../app.data";
 
-export const angularRoutes: Routes = [
-  data.zipCodePipeData,
-  data.numMonthPipeData,
-  data.numRangePipeData,
-  data.phonePipeData,
-  data.angPwStrengthValidatorData,
-  data.angTemplatesData,
-  data.angPipesData,
-  data.angValidatorsData,
-  data.angComponentsData,
-  data.angGithubGistEmbedData,
-  data.angData,
-];
+// Dev-only routes file — keep minimal safe exports so tsc doesn't error if it's
+// imported somewhere. If you truly don't need this file, it can be deleted.
+export const angularRoutes: Routes = [];
 
-export const typescriptRoutes: Routes = [
-    data.typeScriptOperatorsData,
-    data.typeScriptData,
-];
+export const typescriptRoutes: Routes = [];
