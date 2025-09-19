@@ -8,7 +8,7 @@ import { ArticleDisclosureComponent } from '../../article/article-disclosure.com
 import { AmzProductComponent } from '../../article/amz-product.component';
 
 @Component({
-    templateUrl: './energy-drinks.component.html',
+  templateUrl: './energy-drinks.component.html',
   standalone: true,
   imports: [
     ArticleHeaderComponent,
