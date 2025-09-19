@@ -6,7 +6,7 @@
 @use "./styles/mobile-nav.scss";
 @use "highlight.js/styles/vs2015.css";
 @use "ngx-sharebuttons/themes/modern";
-@use "quill/dist/quill.snow.css";
+@use "quill/dist/quill.snow.css" as quillSnow;
 
 // FONT STYLES
 .page-contents-list {

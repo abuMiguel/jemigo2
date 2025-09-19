@@ -39,6 +39,16 @@
                         },
                         "externalDependencies": [
                             ""
+                        ],
+                        "allowedCommonJsDependencies": [
+                            "compression",
+                            "cors",
+                            "dotenv",
+                            "mongoose",
+                            "quill-delta",
+                            "node-schedule",
+                            "sitemap",
+                            "paapi5-typescript-sdk"
                         ]
                     },
                     "configurations": {
@@ -46,7 +56,7 @@
                             "budgets": [
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "6kb"
+                                    "maximumWarning": "30kb"
                                 }
                             ],
                             "outputHashing": "all"

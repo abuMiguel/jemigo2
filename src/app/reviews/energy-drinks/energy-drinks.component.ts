@@ -27,7 +27,7 @@ export class EnergyDrinksComponent implements OnInit {
   superColdBrew: AmzProduct | undefined;
 
   constructor(private appService: AppService,
-    @Inject(PLATFORM_ID) private platformId: any
+    @Inject(PLATFORM_ID) private platformId: object
   ) { }
 
   ngOnInit(){

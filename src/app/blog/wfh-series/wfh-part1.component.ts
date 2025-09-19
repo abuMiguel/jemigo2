@@ -23,7 +23,7 @@ export class WfhPart1Component {
   productivityBook: AmzProduct | undefined;
     
   constructor(public appService: AppService,
-    @Inject(PLATFORM_ID) private platformId: any
+    @Inject(PLATFORM_ID) private platformId: object
   ){}
 
   ngOnInit(){

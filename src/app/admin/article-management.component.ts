@@ -13,9 +13,6 @@ import Quill, { Delta } from "quill";
     FormsModule
 ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styles: [`
-    @import 'quill/dist/quill.snow.css';
-  `]
 })
 export class ArticleManagementComponent implements OnInit, AfterViewInit, OnDestroy {
 

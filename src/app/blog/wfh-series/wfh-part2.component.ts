@@ -49,7 +49,7 @@ export class WfhPart2Component implements OnInit{
 
   constructor(public appService: AppService, 
     private viewportScroller: ViewportScroller,
-    @Inject(PLATFORM_ID) private platformId: any
+    @Inject(PLATFORM_ID) private platformId: object
   ){}
 
   ngOnInit(){

@@ -72,7 +72,7 @@ export class BlogService {
       try{
         return this.mapBlogData(blog);
       }
-      catch(e){
+      catch {
         return [];
       }
     });

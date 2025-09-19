@@ -12,7 +12,7 @@ import { faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 ]
 })
 export class ButtonComponent {
-  @Output() onClick = new EventEmitter<any>();
+  @Output() onClick = new EventEmitter<Event>();
   @Input() color = "orange";
   faLongArrowAltRight = faLongArrowAltRight;
 
