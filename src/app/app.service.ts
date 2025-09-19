@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID, OnInit, signal, DOCUMENT } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, signal, DOCUMENT } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { AmzProduct } from './shared/interfaces/blog-interface';
 @Injectable({
   providedIn: 'root'
 })
-export class AppService implements OnInit{
+export class AppService {
 
   isBrowser = new BehaviorSubject<boolean>(false);
 
@@ -56,9 +56,6 @@ export class AppService implements OnInit{
       Jmg.shuffle(this.treeFacts);
       this.setTreeFact();
     }
-  }
-
-  ngOnInit(): void {
     this.removeExistingServiceWorkers();
   }
 

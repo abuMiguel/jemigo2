@@ -87,7 +87,7 @@
                     }
                 },
                 "lint": {
-                    "builder": "@angular-devkit/build-angular:ng-lint",
+                    "builder": "@angular-eslint/builder:lint",
                     "options": {
                         "eslintConfig": ".eslintrc.json",
                         "lintFilePatterns": [

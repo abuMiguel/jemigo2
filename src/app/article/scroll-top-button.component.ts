@@ -1,5 +1,5 @@
-import { Component, Inject, OnDestroy, afterNextRender, DOCUMENT } from '@angular/core';
-import { CommonModule, ViewportScroller } from '@angular/common';
+import { Component, Inject, OnDestroy, afterNextRender } from '@angular/core';
+import { CommonModule, ViewportScroller, DOCUMENT } from '@angular/common';
 import { fromEvent, Subject } from 'rxjs';
 import { mergeWith, takeUntil } from 'rxjs/operators';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +19,7 @@ export class ScrollTopButtonComponent implements OnDestroy {
     private readonly unsubAll$: Subject<void> = new Subject<void>();
     windowScrolled = false;
     constructor(private viewportScroller: ViewportScroller,
-        @Inject(DOCUMENT) private document: any) {
+        @Inject(DOCUMENT) private document: Document) {
             afterNextRender(() => {
                 const scroll$ = fromEvent(this.document, 'scroll').pipe(takeUntil(this.unsubAll$));
                 const touchmove$ = fromEvent(this.document, 'touchmove').pipe(takeUntil(this.unsubAll$));
@@ -29,11 +29,9 @@ export class ScrollTopButtonComponent implements OnDestroy {
                     mergeWith(touchmove$)
                 );
     
-                allScroll.subscribe(
-                    e => {
-                        this.windowScrolled = window.scrollY !== 0;
-                    }
-                );
+                allScroll.subscribe(() => {
+                    this.windowScrolled = window.scrollY !== 0;
+                });
             });
     }
 
