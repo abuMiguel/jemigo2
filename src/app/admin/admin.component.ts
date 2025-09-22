@@ -20,7 +20,8 @@ export class AdminComponent implements OnInit {
   router = inject(Router);
   appService = inject(AppService);
 
-  token: string = "";
+  user = "";
+  token = "";
 
   constructor(
     @Inject(DOCUMENT) private document: unknown,
@@ -43,7 +44,7 @@ export class AdminComponent implements OnInit {
   authenticate() {
     if(this.appService.authFailCount() > 2) this.router.navigateByUrl(this.router.parseUrl('/'));
 
-    this.http.post(`/api/access`, { token: this.token }, { observe: 'response', responseType: 'text' }).pipe(
+    this.http.post(`/api/access`, { user: this.user, token: this.token }, { observe: 'response', responseType: 'text' }).pipe(
       catchError(() => { throw new Error("Authentication failed"); }),
     ).subscribe({
       next: (res) => {

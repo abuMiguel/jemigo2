@@ -54,7 +54,7 @@ export class AdminBlogData implements BlogData {
     articleDate: string = "";
     modifiedDate: string = "";
     tags: Array<string> = [];
-    article: Article;
+    article: Article = { contents: undefined, html: '' };
     published: boolean = false;
 }
 
@@ -80,6 +80,7 @@ export interface AmzProduct {
     mediumImage?: AmzImage;
     smallImage?: AmzImage;
     title?: string;
+    features?: Array<string>;
     price?: number;
     displayPrice?: string;
     isPrime?: boolean;

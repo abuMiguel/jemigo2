@@ -44,6 +44,7 @@ export interface AmzProduct {
     mediumImage?: AmzImage;
     smallImage?: AmzImage;
     title?: string;
+    features?: Array<string> | unknown;
     price?: number;
     displayPrice?: string;
     isPrime?: boolean;

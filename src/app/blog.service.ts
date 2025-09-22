@@ -99,4 +99,10 @@ export class BlogService {
       throw e;
     }
   }
+
+  getPartnerTags() {
+    return this.http.get<Array<string>>(`/api/admin/partnertags`).pipe(
+      catchError(() => of([])),
+    );
+  }
 }

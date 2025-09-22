@@ -7,6 +7,7 @@
 @use "highlight.js/styles/vs2015.css";
 @use "ngx-sharebuttons/themes/modern";
 @use "quill/dist/quill.snow.css" as quillSnow;
+@use "./styles/amz.scss";
 
 // FONT STYLES
 .page-contents-list {
@@ -459,7 +460,7 @@ code {
     align-items: center;
 }
 
-.prod-btn {
+.old-prod-btn {
     background-image: linear-gradient(-180deg, #37aee2 0%, #1e96c8 100%);
     border-radius: 0.5rem;
     box-sizing: border-box;
@@ -489,6 +490,38 @@ code {
     }
 }
 
+.prod-btn {
+    box-sizing: border-box;
+    font-size: 16px;
+    a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+    cursor: pointer; /* make CTA feel clickable */
+    transition: filter 180ms ease, transform 120ms ease;
+    &:hover {
+        /* more subtle darken */
+        filter: brightness(0.97);
+    }
+    @media (min-width: 768px) {
+        .button-43 {
+            padding: 1rem 2rem;
+        }
+    }
+}
+
+/* Ensure product buttons within AMZ product embeds also show pointer and hover darken */
+.amz-product-box .prod-btn,
+.amz-product-box button.prod-btn {
+    cursor: pointer;
+}
+
+/* also make amz embed hover text slightly brighter */
+.amz-product-box .prod-btn:hover,
+.amz-product-box button.prod-btn:hover {
+    filter: brightness(0.97);
+}
+
 .images-section-label {
     margin-top: 0;
     font-style: italic;
@@ -501,6 +534,90 @@ code {
     box-shadow: 0 0 8px #c4c4c4;
     max-width: vars.$article-content-width;
     padding: 20px 30px;
+}
+
+/* Make the admin Quill editor match the article display width so authors see content
+     at the same width it will appear on the site. Content area: 640px, with 30px
+     left/right padding and 20px top padding. */
+
+.quill-editor-large {
+    box-sizing: border-box;
+    /* Wrapper width = content width (640px) + left/right padding (30px each) */
+    max-width: 700px; /* 640 + 30 + 30 */
+    margin: 0 auto; /* center horizontally */
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+    /* Keep the editor layout simple and allow the page to scroll. Removing
+       the flex container and internal max-height prevents an internal scrollbar
+       that hides the page toolbar/header and provides the natural browser
+       scrolling experience the user expects. */
+}
+
+/* Quill container should flow naturally; avoid forcing internal scrollbars. */
+.quill-editor-large .ql-container {
+    width: 100%;
+    box-sizing: border-box;
+    /* Allow the container to size based on content and page flow */
+}
+
+.ql-toolbar {
+    max-width: 700px; /* match editable content width */
+    margin: 0 auto; /* center the toolbar inside the wrapper so it aligns with content */
+}
+
+/* Ensure the toolbar aligns with the editor wrapper width */
+.quill-editor-large .ql-toolbar {
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 0; /* padding is on wrapper */
+    padding-right: 0;
+    /* Note: toolbar stickiness/positioning is handled in component JS so we
+       avoid using CSS position:sticky here which previously required internal
+       scrolling. */
+}
+
+.quill-editor-large .ql-editor {
+    /* Remove default inner padding so the wrapper padding controls spacing */
+    padding: 0.5rem 0 1rem 0;
+    min-height: 320px; /* reasonable starting height */
+}
+
+/* Responsive fallback for narrow viewports */
+@media only screen and (max-width: 700px) {
+    .quill-editor-large {
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Ensure the Quill placeholder lines up with the editable content inside the wrapper
+     by matching the same left/top offsets. This targets the blank-state pseudo-element. */
+.quill-editor-large .ql-editor {
+    position: relative; /* so ::before is positioned relative to editor */
+}
+
+.quill-editor-large .ql-editor.ql-blank::before {
+    left: 2px; /* match wrapper left padding */
+    top: 14px; /* match wrapper top padding */
+    right: 30px; /* avoid overflowing the right side */
+    width: auto;
+    transform: none; /* remove vertical centering transforms if present */
+    margin: 0;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 700px) {
+    .quill-editor-large .ql-editor.ql-blank::before {
+        left: 15px; /* match responsive padding */
+        right: 15px;
+        top: 12px;
+    }
 }
 
 .related-article {
@@ -822,15 +939,22 @@ fa-icon .fa-2x {
     }
 }
 
-.article-header-image>img {
-    position: relative !important;
-    // max-width: calc(100vw - 77px);
-    // //height: 480px;
-    // //min-height: 250px;
-    // @media (max-width: 600px) {
-    //     width: auto;
-    //     //max-height: 250px;
-    // }
+.article-header-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+
+    > img {
+        /* Ensure image never exceeds 640px but is responsive below that */
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative !important;
+    }
 }
 
 .related-article-img {
@@ -859,3 +983,233 @@ fa-icon .fa-2x {
 .d-flex {
     display: flex;
 }
+
+/* Amazon product widget styles */
+.amz-product-box{
+    border:1px solid #d6d6d6;
+    border-radius:10px;
+    padding:18px;
+    background:#fafafa;
+    display:flex;
+    align-items:stretch; /* make image and content equal height */
+    gap:24px;
+}
+.amz-product-box .amz-image{
+    flex:0 0 40%;
+    max-width:320px;
+    display:flex;
+    align-items:flex-start; /* ensure image sits at top of its column */
+}
+.amz-product-box .amz-image img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:6px;
+    object-fit:contain;
+}
+.amz-product-box .amz-content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    /* stretch to match image height and distribute content so title is top and CTA is bottom */
+    align-self:stretch;
+    justify-content:space-between;
+    align-items: flex-start; /* left-align children like the CTA */
+}
+.amz-product-box .amz-title{
+    /* Use the larger size and 4-line clamp as requested */
+    font-size:20px;
+    font-weight:700;
+    line-height:1.15;
+    margin-bottom:6px;
+    color:var(--text-color,#111);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+.amz-product-box .amz-desc{
+    color:#666;
+    margin-bottom:14px;
+    font-size:1rem;
+}
+.amz-product-box .amz-price{
+    color:#444;
+    margin-bottom:12px;
+    font-size:1rem;
+    font-weight:700;
+}
+.amz-product-box .amz-cta{
+    display:flex;
+    justify-content:flex-start; /* ensure CTA sits at left of content column */
+    width:100%;
+}
+.amz-product-box .amz-features{
+    margin:0.35rem 0 8px; /* small gap above features and 8px bottom to match top spacing */
+    padding:0; /* remove default padding */
+    width:100%;
+}
+.amz-product-box .amz-features ul{
+    margin:0;
+    padding:0; /* remove default ul padding so it aligns with title */
+    list-style-position: inside; /* keep bullets but align their start with the title text */
+}
+.amz-product-box .amz-features li{
+    margin:0.18rem 0; /* compact spacing between items */
+    padding:0;
+    font-size:0.98rem; /* slightly smaller than title */
+    color:inherit;
+}
+.amz-product-box .prod-btn{
+    gap:12px;
+    padding:0.75rem 1.2rem;
+    border-radius:12px;
+    white-space:nowrap;
+}
+
+/* Strong overrides to guarantee button looks like the visual CTA */
+.amz-product-box button.prod-btn,
+.amz-product-box .prod-btn {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background: linear-gradient(-180deg, #37aee2 0%, #1e96c8 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.amz-product-box button.prod-btn,
+.amz-product-box button.prod-btn *,
+.amz-product-box .prod-btn,
+.amz-product-box .prod-btn * {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+.amz-product-box button.prod-btn {
+    display:inline-flex;
+    align-items:center;
+    justify-content:flex-start;
+}
+.amz-product-box .amz-cta{
+    align-self:flex-start; /* align to left of content column */
+    width:100%; /* allow CTA to extend to the right edge of content column */
+}
+.amz-product-box .prod-arrow{
+    font-size:2.3rem; /* large arrow, tweak for visual balance */
+    font-weight:900;
+    line-height:.8;
+    padding-bottom:10px;
+}
+@media (max-width: 800px){
+    .amz-product-box{flex-direction:column;align-items:stretch}
+    .amz-product-box .amz-image{flex-basis:auto;max-width:100%}
+    .amz-product-box .amz-content{align-self:stretch;justify-content:flex-start}
+}
+
+/* Larger Quill editor for admin UI */
+.quill-editor-large {
+    min-height: 600px; /* default desktop height */
+}
+
+@media (max-width: 800px) {
+    .quill-editor-large {
+        min-height: 420px; /* smaller height on mobile */
+    }
+}
+
+/* Ensure Quill's internal editor and container honor the min-height and show a visible editing area */
+.quill-editor-large .ql-container {
+    min-height: 600px !important;
+    height: auto !important;
+    overflow: auto !important;
+}
+.quill-editor-large .ql-editor {
+    min-height: 560px !important; /* slightly less to account for toolbar */
+    height: auto !important;
+}
+
+@media (max-width: 800px) {
+    .quill-editor-large .ql-container { min-height: 420px !important; }
+    .quill-editor-large .ql-editor { min-height: 380px !important; }
+}
+
+/* Admin page margins - account for fixed 100px sidebar */
+.admin-main {
+    padding: 16px 16px; /* top/bottom, left/right */
+}
+
+@media (max-width: 992px) {
+    .admin-main { padding-left: 18px; padding-right: 18px; }
+}
+
+@media (max-width: 600px) {
+    .admin-main { padding: 12px 12px; }
+}
+
+/* Admin article header (metadata) styles */
+.admin-article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 6px 4px;
+}
+.admin-article-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.status-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: #999;
+    letter-spacing: 1.1px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.status-badge.published {
+    background: #1e88e5; /* blue */
+}
+.status-badge.unpublished {
+    background: default;
+}
+.admin-action-group {
+    display: flex;
+    gap: 12px;
+}
+
+/* Small responsive adjustments */
+@media (max-width: 760px) {
+    .admin-article-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .admin-action-group {
+        justify-content: flex-end;
+    }
+}
+
+/* Admin transient toast for Save/Publish feedback */
+.admin-toast{
+    position: fixed;
+    right: 24px;
+    top: 92px;
+    z-index: 200000;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    transition: opacity 200ms ease, transform 200ms ease;
+    opacity: 1;
+}
+.admin-toast[data-kind="success"]{ background: linear-gradient(180deg,#45c36b,#2aa94f); }
+.admin-toast[data-kind="error"]{ background: linear-gradient(180deg,#e15353,#c43a3a); }

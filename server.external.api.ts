@@ -9,7 +9,7 @@ import {
 import { AmzProduct } from "./server.models";
 
 export abstract class Amazon {
-  static async getProducts(ids: string[]): Promise<Array<AmzProduct>> {
+  static async getProducts(ids: string[], partnerTag?: string): Promise<Array<AmzProduct>> {
     try {
       const requestParams: GetItemsPayload = {
         ItemIds: ids,
@@ -20,14 +20,19 @@ export abstract class Amazon {
           "Images.Primary.Medium",
           "Images.Primary.Small",
           "ItemInfo.Title",
+          "ItemInfo.Features",
           "Offers.Listings.Price",
           "Offers.Listings.DeliveryInfo.IsPrimeEligible",
         ],
       };
 
+      // Choose partner tag: explicit argument wins, otherwise use first entry from env var (comma-separated)
+      const envTags = (process.env["AMZ_PARTNER_TAG"] ?? "").split(',').map(t => t.trim()).filter(Boolean);
+      const selectedTag = (partnerTag && String(partnerTag).trim()) || envTags[0] || "";
+
       const request = new GetItemsRequest(
         requestParams,
-        process.env["AMZ_PARTNER_TAG"] ?? "",
+        selectedTag,
         PartnerType.ASSOCIATES,
         process.env["AMZ_ACCESS_KEY"] ?? "",
         process.env["AMZ_SECRET_KEY"] ?? "",
@@ -54,6 +59,7 @@ export abstract class Amazon {
           asin: item.ASIN,
           link: item.DetailPageURL,
           title: item?.ItemInfo?.Title?.DisplayValue,
+          features: item?.ItemInfo?.Features?.DisplayValues,
           price: item?.Offers?.Listings?.[0]?.Price?.Amount,
           displayPrice: item?.Offers?.Listings?.[0]?.Price?.DisplayAmount,
           isPrime: item?.Offers?.Listings?.[0]?.DeliveryInfo?.IsPrimeEligible,

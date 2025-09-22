@@ -1,16 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { AppData } from '../app.data';
 import { ArticleShareComponent } from './article-share.component';
 
 @Component({
-    selector: 'article-header',
-    templateUrl: './article-header.component.html',
+  selector: 'article-header',
+  templateUrl: './article-header.component.html',
   standalone: true,
   imports: [
-        ArticleShareComponent,
-        DatePipe,
-    ],
+    ArticleShareComponent,
+    DatePipe,
+    NgOptimizedImage,
+  ],
 })
 export class ArticleHeaderComponent {
   @Input() data: AppData | undefined = undefined;
@@ -40,11 +41,29 @@ export class ArticleHeaderComponent {
     return src;
   }
 
+  // Provide a width hint for NgOptimizedImage to reduce layout shift.
+  get imageWidth(): number | undefined {
+    const src = this.data?.image?.src;
+    if (!src) return undefined;
+    if (src.includes('cloudinary')) return 640;
+    return undefined;
+  }
+
+  // Provide a height hint (assume 16:9 aspect ratio for header images unless
+  // specific metadata is available). This helps avoid CLS when using explicit
+  // dimensions with NgOptimizedImage.
+  get imageHeight(): number | undefined {
+    const w = this.imageWidth;
+    if (!w) return undefined;
+    // default to 16:9
+    return Math.round((9 / 16) * w);
+  }
+
   get imageSrcset(): string | undefined {
     const src = this.data?.image?.src;
     if (!src) return undefined;
     if (src.includes('cloudinary')) {
-  const widths = [320, 480, 640, 768, 1024];
+      const widths = [320, 480, 640, 768, 1024];
       const parts = widths.map(w => `${this.buildCloudinaryUrlForWidth(src, w)} ${w}w`);
       return parts.join(', ');
     }

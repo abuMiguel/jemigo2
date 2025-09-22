@@ -30,7 +30,7 @@ type AmzProdSize = "sm" | "md" | "lg";
           >
         </a>
         @if (showButton) {
-          <button class="prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
+          <button class="old-prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
         }
       }
       <ng-template #linkAndButton>
@@ -47,7 +47,7 @@ type AmzProdSize = "sm" | "md" | "lg";
             >
           </a>
           @if (showButton) {
-            <button class="prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
+            <button class="old-prod-btn"><a [href]="amzProd.link" target="_blank">View on Amazon</a></button>
           }
         </ng-template>
       }

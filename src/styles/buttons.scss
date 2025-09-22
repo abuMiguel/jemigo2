@@ -34,6 +34,24 @@
     &:hover {
         background-color: colors.$darkerlightblue;
     }
+    &[disabled],
+    &:disabled {
+        opacity: 0.5;
+        cursor: default;
+        filter: grayscale(20%);
+    }
+}
+
+.jmg-btn-secondary {
+    @extend .jmg-btn;
+    background-color: #ffffff;
+    color: #1f2937; // dark gray
+    border: 1px solid rgba(0,0,0,0.08);
+    font-style: normal;
+    padding: 10px 16px;
+    &:hover {
+        background-color: #f7f7f8;
+    }
 }
 
 .jmg-btn-green {
@@ -111,4 +129,47 @@
 }
 .btn-lg{
     @extend .btn;
+}
+
+/* Admin-specific buttons (do not rely on jmg- classes) */
+.admin-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    height: 44px;
+    min-width: 132px;
+    border-radius: 8px;
+    background: #d88727; /* save button color requested */
+    color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.06);
+    font-weight: 700;
+    font-family: fonts.$secondary-font;
+    font-size: 18px; /* larger, easy to read */
+    box-shadow: none;
+    cursor: pointer; /* show pointer on hover as requested */
+}
+
+.admin-publish-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    height: 44px;
+    min-width: 140px;
+    border-radius: 8px;
+    background: #2d4372; /* publish button color requested */
+    color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    font-weight: 800;
+    font-family: fonts.$secondary-font;
+    font-size: 18px; /* larger, easy to read */
+    box-shadow: none;
+    transition: none;
+    cursor: pointer; /* show pointer on hover as requested */
+}
+.admin-publish-btn[disabled], .admin-publish-btn:disabled {
+    opacity: 0.55;
+    cursor: default;
+    box-shadow: none;
 }

@@ -3,9 +3,9 @@
     <div class="center">
         <div class="article-header-image">
             @if (imageSrc) {
-                <img [src]="imageSrc" [srcset]="imageSrcset" [sizes]="imageSizes" [alt]="data.image.alt" loading="lazy">
+                <img [ngSrc]="imageSrc" [attr.srcset]="imageSrcset" [sizes]="imageSizes" [alt]="data.image.alt" [width]="imageWidth" [height]="imageHeight" priority loading="eager">
             } @else if (data?.image?.src) {
-                <img [src]="data.image.src" [alt]="data.image.alt" loading="lazy">
+                <img [ngSrc]="data.image.src" [alt]="data.image.alt" [width]="imageWidth" [height]="imageHeight" priority loading="eager">
             }
         </div>
 

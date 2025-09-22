@@ -38,6 +38,23 @@
     /* height: 210px; */
 }
 
+/* Jemigo AMZ product box title used by our AmzProductComponent */
+.amz-product-box .amz-title {
+    font-size: 20px; /* larger for emphasis */
+    line-height: 1.15;
+    color: #0066c0;
+    margin-bottom: 6px;
+    /* Four-line clamp with safe fallbacks */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
 /* fixed width and height of product image to 150px */
 .paapi5-pa-product-image {
     display: table;
@@ -100,12 +117,21 @@
     display: block;
     width: 100%;
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 13px;
+    /* Use a slightly smaller font to help long titles fit */
+    font-size: 12px;
     color: #0066c0;
     text-decoration: none;
     margin-top: 3px;
+    /* Prefer a two-line clamp with ellipsis; falls back to single-line ellipsis when not supported */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* limits to 2 lines */
+    line-clamp: 2; /* standard property fallback */
+    white-space: normal; /* allow wrapping for clamp */
+    /* Better wrapping for very long words/URLs */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    text-overflow: ellipsis;
 }
 
 .paapi5-pa-ad-unit .paapi5-pa-product-title a:hover {
@@ -188,4 +214,15 @@
         text-align: center;
         margin-top: 11px;
     }
+}
+
+/* Quill typically inserts a blank paragraph after an embed. Reduce its top
+   margin so it doesn't create a large visual gap while still allowing a caret.
+   This preserves the product-box paddings/margins while removing the invisible
+   trailing line that causes the appearance of extra space. */
+.ql-editor .amz-product-embed + p {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    line-height: 1 !important;
+    min-height: 1em !important; /* keep room for caret */
 }

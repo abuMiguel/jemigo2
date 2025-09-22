@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, signal, computed, DOCUMENT } from "@angular/core";
+import { Component, OnInit, Inject, signal, computed, DOCUMENT, input } from "@angular/core";
 import { data } from "../app.data";
 
 import { AmzProduct } from "../shared/interfaces/blog-interface";
@@ -13,6 +13,8 @@ import { FormsModule } from "@angular/forms";
 ]
 })
 export class ProductManagementComponent implements OnInit {
+    user = input.required<string>();
+    
     title = data.aboutData.title;
 
     productIds = "";

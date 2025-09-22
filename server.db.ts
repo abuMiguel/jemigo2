@@ -40,6 +40,7 @@ const amzprodSchema = new Schema<AmzProduct>({
     mediumImage: { height: Number, width: Number, url: String },
     smallImage: { height: Number, width: Number, url: String },
     title: String,
+    features: [String],
     price: Number,
     displayPrice: String,
     isPrime: Boolean,
@@ -258,6 +259,7 @@ export class JemigoDb {
                     mediumImage: data.mediumImage,
                     smallImage: data.smallImage,
                     title: data.title,
+                    features: data.features,
                     isPrime: data.isPrime,
                     lastUpdated: Date.now(),
                 }

@@ -64,7 +64,7 @@ export class Util {
     const sizeLg = (imgWidth ?? 818) - offsetLg;
 
     // Use an anchor styled as a button instead of nesting <a> inside <button>
-    const viewButton = `<a class="prod-btn" href="${safeLink}" target="_blank" rel="noopener noreferrer">View on Amazon</a>`;
+  const viewButton = `<a class="prod-btn" href="${safeLink}" target="_blank" rel="noopener noreferrer">View on Amazon <span class="prod-arrow" aria-hidden="true">→</span></a>`;
 
     // If no image is available, return a simple linked title + button
     if (!imgUrl) {

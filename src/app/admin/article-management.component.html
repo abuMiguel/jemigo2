@@ -1,66 +1,71 @@
-<div id="controlButtons" style="width: 90px; position: fixed; padding-right: 5px; border-right: 1px dotted grey;">
+<main class="admin-main">
+  <div style="flex: auto; max-width:700px; margin:0 auto;">
+    <div>
+      <button class="btn-md" (click)="getArticles()">Get Articles</button>
+      <select #blogId (change)="selectArticle(blogId?.value)" style="min-width: 50%;height:30px;">
+        <option [value]="''">New Article</option>
+        @for (article of blogArticles; track article) {
+        <option [value]="article?._id">{{article.title}}</option>
+        }
+      </select>
+    </div>
 
-  <br><br>
-  <button class="w-100" style="min-height:45px;" (click)="saveArticle()">Save</button>
-  <br><br>
-  <button class="w-100" [disabled]="ar?.published" style="min-height:45px;"
-  (click)="publishArticle()">Publish</button>
-  <br><br>
-  <button class="w-100" style="min-height:45px;" (click)="testSaveQuill()">Test</button>
-  <br><br>
-  <button class="w-100" style="min-height:45px;" (click)="testRestoreArticle()">Restore</button>
-  <br><br>
-</div>
-
-<main style="margin-left:90px;">
-  <div style="display:flex;flex-direction: row;">
-    <div style="flex: auto;overflow-y:scroll;height:100vh;margin-left:5px;">
+    <h3>Metadata</h3>
+    <div>
       <div>
-        <button class="btn-md" (click)="getArticles()">Get Articles</button>
-        <select #blogId (change)="selectArticle(blogId?.value)" style="min-width: 50%;height:30px;">
-          <option [value]="''">Select Article</option>
-          @for (article of blogArticles; track article) {
-            <option [value]="article?._id">{{article.title}}</option>
+        <label style="display:inline-block; width: 85px;">Title</label>
+        <input style="width: 85%;" type="text" [(ngModel)]="ar.title">
+      </div>
+      <div>
+        <label style="display:inline-block; width: 85px;">URL Slug</label>
+        <input style="width: 85%;" type="text" [(ngModel)]="ar.path" placeholder="my-article-path">
+      </div>
+      <div>
+        <label style="display:inline-block; width: 85px;">Description</label>
+        <input style="width: 85%;" type="text" [(ngModel)]="ar.description" placeholder="This is my article about...">
+      </div>
+      <div>
+        <label style="display:inline-block; width: 85px;">Image Path</label>
+        <input style="width: 85%;" type="text" [(ngModel)]="ar.imagePath" placeholder="https://res.cloudinary.com/image/upload/my-image.webp">
+      </div>
+      <div>
+        <label style="display:inline-block; width: 85px ;">Alt</label>
+        <input style="width: 85%;" type="text" [(ngModel)]="ar.imageAlt" placeholder="My Image Description">
+      </div>
+      <div>
+        <label style="display:inline-block; width: 85px;">Tags</label>
+        <input style="width: 85%;" type="text" [(ngModel)]="tags" placeholder="top, featured">
+      </div>
+      <div>
+        <label style="display:inline-block; width: 85px;">Partner Tag</label>
+        <select style="width: 85%; height:30px;" [(ngModel)]="selectedPartnerTag">
+          <option [value]="''">(default)</option>
+          @for (tag of partnerTags; track tag) {
+            <option [value]="tag">{{tag}}</option>
           }
         </select>
       </div>
-
-      <h3>Metadata</h3>
-      <div>
-        <div>
-          <label style="display:inline-block; width: 90px;">title</label>
-          <input style="width: 80%;" type="text" [(ngModel)]="ar.title">
-        </div>
-        <div>
-          <label style="display:inline-block; width: 90px;">path</label>
-          <input style="width: 80%;" type="text" [(ngModel)]="ar.path">
-        </div>
-        <div>
-          <label style="display:inline-block; width: 90px;">description</label>
-          <input style="width: 80%;" type="text" [(ngModel)]="ar.description">
-        </div>
-        <div>
-          <div><strong>image</strong></div>
-          <label style="display:inline-block; width: 90px;">name</label>
-          <input style="width: 60%;" type="text" [(ngModel)]="ar.imagePath">
-
-          <!-- <input style="width: 60%;" type="text" [(ngModel)]="ar.imageName"> -->
-          <!-- <input style="width: 20%;" type="text" [(ngModel)]="ar.imageFormat" placeholder=".jpg, .png, .webp"> -->
-        </div>
-        <div>
-          <label style="display:inline-block; width: 90px;">alt</label>
-          <input style="width: 80%;" type="text" [(ngModel)]="ar.imageAlt">
-        </div>
-        <div>
-          <label style="display:inline-block; width: 90px;">tags</label>
-          <input style="width: 80%;" type="text" [(ngModel)]="tags" placeholder="top, featured">
-        </div>
+    </div>
+    <div class="admin-article-header">
+      <div class="admin-article-title">
+        <h3 style="margin:0">Edit Article</h3>
+        <span class="status-badge" [class.published]="ar.published" [class.unpublished]="!ar.published">{{ ar.published ? 'Published' : 'Draft' }}</span>
       </div>
-      <h3>Article &nbsp;&nbsp;&nbsp; ({{ ar.published ? "Published" : "Unpublished" }})</h3>
 
-      <!-- Quill toolbar -->
-      <div #editor></div>
-
+      <div class="admin-action-group">
+        <button class="admin-save-btn" (click)="saveArticle()">Save</button>
+        <button class="admin-publish-btn" [disabled]="ar?.published" (click)="publishArticle()">Publish</button>
       </div>
     </div>
-  </main>
+
+    <!-- transient success / error toast -->
+    <div *ngIf="successVisible()" class="admin-toast" [attr.data-kind]="successKind()" role="status" aria-live="polite">
+      {{ successMessage() }}
+    </div>
+
+
+    <!-- Quill toolbar -->
+    <div #editor class="quill-editor-large"></div>
+
+  </div>
+</main>

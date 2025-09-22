@@ -21,14 +21,15 @@ export class Api {
         await db.incrementVisits();
         //await db.updateVisits();
         return res.sendStatus(204);
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
     }
     );
 
     this.router.post("/access", async function (req: Request, res: Response) {
       try {
+        // Protect against brute-force in production
         if (process.env["NODE_ENV"] === 'production') {
           const attempts = await db.getAdminLoginAttempts();
           if (attempts && attempts > 8) {
@@ -36,17 +37,45 @@ export class Api {
           }
         }
 
-        if (req.body.token === process.env["ADMIN_PW"]) {
-          return res.sendStatus(200);
-        } else {
-          db.incrementAdminLoginAttempts();
+        const token = req.body?.token;
+        const user = (req.body?.user ?? '').toString().trim();
+
+        // Require both token and user
+        if (!token || !user) {
+          try { db.incrementAdminLoginAttempts(); } catch {}
           return res.sendStatus(500);
         }
-      } catch (e) {
+
+        // Validate user against configured AMZ partner tags (comma-separated)
+        const envTags = (process.env["AMZ_PARTNER_TAG"] ?? "").split(',').map(t => t.trim()).filter(Boolean);
+        const userAllowed = envTags.includes(user);
+        if (!userAllowed) {
+          try { db.incrementAdminLoginAttempts(); } catch {}
+          return res.sendStatus(500);
+        }
+
+        // Validate admin token
+        if (token === process.env["ADMIN_PW"]) {
+          return res.sendStatus(200);
+        } else {
+          try { db.incrementAdminLoginAttempts(); } catch {}
+          return res.sendStatus(500);
+        }
+      } catch {
         return res.sendStatus(500);
       }
     }
     );
+
+    // Return configured AMZ partner tags parsed from environment (comma-separated)
+    this.router.get("/admin/partnertags", async function (req: Request, res: Response) {
+      try {
+        const envTags = (process.env["AMZ_PARTNER_TAG"] ?? "").split(',').map(t => t.trim()).filter(Boolean);
+        return res.json(envTags);
+      } catch {
+        return res.sendStatus(500);
+      }
+    });
   }
 
   setupBlogDataRoute(db: JemigoDb) {
@@ -54,8 +83,8 @@ export class Api {
       try {
         const blogData = await db.getBlogData();
         return res.json(blogData);
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
     }
     );
@@ -64,8 +93,8 @@ export class Api {
       try {
         const blogData = await db.getPublishedBlogData();
         return res.json(blogData);
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
     }
     );
@@ -83,8 +112,8 @@ export class Api {
         }
 
         return res.status(200).send({ message: "Data saved: " + blogId });
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
     }
     );
@@ -102,53 +131,23 @@ export class Api {
         }
 
         return res.status(200).send({ message: "Data updated." });
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
     }
     );
-
-
 
     this.router.get("/blog/data/:id", async function (req: Request, res: Response) {
       try {
         const id = req.params["id"];
         const blogData: BlogData = await db.getBlogDataByPath(id);
-        // Replace any Quill-inserted placeholders like [[AMZ:ASIN]] with
-        // an `amz-product` component tag that carries the product data.
-        // This allows the frontend/SSR to render the component in place.
-        try {
-          const html = blogData?.article?.html ?? '';
-          if (html && /\[\[AMZ:([^\]]+)\]\]/i.test(html)) {
-            // collect unique ASINs
-            const matches = Array.from(html.matchAll(/\[\[AMZ:([^\]]+)\]\]/gi));
-            const asins = [...new Set(matches.map(m => m[1]))];
-            let prods: Array<AmzProduct> = [];
-            if (asins.length > 0) {
-              prods = await db.getCachedAmazonProducts(asins);
-            }
-
-            // Replace placeholders with component tags carrying serialized product data
-            const replaced = html.replace(/\[\[AMZ:([^\]]+)\]\]/gi, (m, asin) => {
-              const prod = prods.find(p => p.asin === asin);
-              if (!prod) return '';
-              // server-side render the product widget HTML
-              return Util.getAmzProductLink(prod);
-            });
-
-            // assign back
-            if (!blogData.article) blogData.article = { contents: undefined, html: replaced } as any;
-            else blogData.article.html = replaced;
-          }
-        } catch (e) {
-          console.error('Error replacing AMZ placeholders:', e);
-        }
+        // Do not perform AMZ placeholder replacement on the server anymore.
+        // The frontend (editor) will render affiliate HTML so authors see it in Quill.
         return res.json(blogData);
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
-    }
-    );
+    });
   }
 
   setupAmazonApiRoutes(db: JemigoDb) {
@@ -167,8 +166,8 @@ export class Api {
         }
 
         return res.send(prods);
-      } catch (e) {
-        return res.status(500);
+      } catch {
+        return res.sendStatus(500);
       }
     });
 
@@ -176,11 +175,12 @@ export class Api {
     this.router.post("/product/amz/save", async function (req: Request, res: Response) {
       try {
         const ids: Array<string> = req?.body?.ids;
+        const partnerTag = req?.body?.partnerTag;
         if (!ids || ids?.length < 1) return res.status(500);
 
         let unavailableProds = 0;
         if (ids && ids.length <= 10) {
-          const prods = await Amazon.getProducts(ids);
+          const prods = await Amazon.getProducts(ids, partnerTag);
           prods.forEach(async (product) => {
             if (!product?.price && !product?.displayPrice && !product?.isPrime) {
               unavailableProds++;
@@ -194,8 +194,8 @@ export class Api {
 
         return res.send({ msg: `saved with ${unavailableProds} products that are unavailable` });
       } catch (e) {
-        await db.saveLog({ date: new Date(), msg: e });
-        return res.status(500);
+        await db.saveLog({ date: new Date(), msg: String(e) });
+        return res.sendStatus(500);
       }
     });
   }
